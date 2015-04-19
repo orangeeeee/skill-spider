@@ -10,26 +10,24 @@
 </head>
 <body>
 <h1>結果確認画面</h1>
-<form:form modelAttribute="customer">
+<form:form id="oForm" modelAttribute="userForm" method="post">
 <table>
 	<tr>
 		<th align="left">名前</th>
-		<td><c:out value="${customer.name}" /></td>
+		<td><c:out value="${userForm.sUserId}" /></td>
 	</tr>
 	<tr>
 		<th align="left">address</th>
-		<td><c:out value="${customer.address}" /></td>
+		<td><c:out value="${userForm.password}" /></td>
 	</tr>
 	<tr>
 		<th align="left">free address</th>
-		<td><c:out value="${customer.emailAddress}" /></td>
+		<td><c:out value="${userForm.name}" /></td>
 	</tr>
-</table>
+<form:hidden path="sUserId"/>
+<form:hidden path="password"/>
 <form:hidden path="name"/>
-<form:hidden path="address"/>
-<form:hidden path="emailAddress"/>
-<br><br>
-<input type="button" name="_event_processd" onclick="submitPrc('returnEnter')" value="戻る">
+</table>
 </form:form>
 <script type="text/javascript">
 function submitPrc(btnName) {

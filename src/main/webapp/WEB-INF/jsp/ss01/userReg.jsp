@@ -11,11 +11,12 @@
 <body>
 <h1>入力画面</h1>
 <form:form id="oForm" modelAttribute="userForm" method="post">
+<input type="hidden" id="contextPath" value="<%= request.getContextPath() %>" />
 <table>
 	<tr>
 		<th align="left">名前</th>
 		<td>
-			<form:input path="sUserId" placeholder="山田 太郎"/>
+			<form:input path="name" placeholder="山田 太郎"/>
 			<form:errors path="sUserId" cssStyle="color: red;"/>
 		</td>
 	</tr>
@@ -26,6 +27,17 @@
 		</td>
 	</tr>
 </table>
+<br><br>
+<input type="button" name="_event_processd" onclick="submitPrc('regConf')" value="確認">
 </form:form>
+<script type="text/javascript">
+function submitPrc(btnName) {
+
+	var oForm = document.getElementById('oForm');
+	oForm.method = "post";
+	oForm.action = "/orangeSpring/" + btnName;
+	oForm.submit();
+}
+</script>
 </body>
 </html>
