@@ -14,17 +14,12 @@
 <table>
 	<tr>
 		<th align="left">名前</th>
-		<td><c:out value="${userForm.sUserId}" /></td>
-	</tr>
-	<tr>
-		<th align="left">address</th>
-		<td><c:out value="${userForm.password}" /></td>
-	</tr>
-	<tr>
-		<th align="left">free address</th>
 		<td><c:out value="${userForm.name}" /></td>
 	</tr>
-<form:hidden path="sUserId"/>
+	<tr>
+		<th align="left">パスワード</th>
+		<td><c:out value="${userForm.password}" /></td>
+	</tr>
 <form:hidden path="password"/>
 <form:hidden path="name"/>
 </table>
