@@ -24,6 +24,9 @@ public class UserController {
 
 	private static final Logger logger = Logger.getLogger(UserController.class);
 
+	private static final String ATTR_FROM_KEY = "userForm";
+
+	private static final String SESSION_FROM_KEY = "sssionUserForm";
 
 	@Autowired
 	private UserValidator userValidator;
@@ -54,14 +57,14 @@ public class UserController {
 		/---------------------------------------------------------------- */
 		logger.debug("register end");
 
-		return new ModelAndView("ss01/userReg", "userForm", new UserForm());
+		return new ModelAndView("ss01/userReg", ATTR_FROM_KEY, new UserForm());
 	}
 
 
 	/**
-	 * 入力画面表示<br>
+	 * 確認画面表示<br>
 	 * <p>
-	 * 引数のModelAttribute<br>0 O
+	 * 引数のModelAttribute<br>
 	 *
 	 * @ModelAttributeで指定された"customer"がModelから取り出されます。<br>
 	 * もしModelに"customer"がない場合、新たにCustomerをnewして、Modelに設定します。
@@ -82,18 +85,69 @@ public class UserController {
 		if (result.hasErrors()) {
 			String message = "Please fil requered field.";
 			//エラーの場合、Formの値を表示。
-			modelAndView.addObject("userForm", userForm);
+			//TODO 直接設定するの良くないんでしたっけ？
+			modelAndView.addObject(ATTR_FROM_KEY, userForm);
 			modelAndView.addObject("message", message);
 			modelAndView.setViewName("ss01/userReg");
 			return modelAndView;
 		} else {
 			// success pattern
 			//正常遷移の場合、HttpSessionの値を表示させる。
-			session.setAttribute("sssionUserForm", userForm);
+			session.setAttribute(SESSION_FROM_KEY, userForm);
 			modelAndView.setViewName("ss01/userRegConf");
 		}
 
 		logger.debug("registerConf end");
+
+		return modelAndView;
+	}
+
+	/**
+	 * 完了画面表示<br>
+	 * <p>
+	 * sessionの値をDBにinsertする。
+	 * 成功した場合、完了画面に遷移する。
+	 * </p>
+	 * @return 画面
+	 */
+	@RequestMapping(value = "/registerComp", method = RequestMethod.POST)
+	public ModelAndView registerComp(@ModelAttribute UserForm userForm,
+			HttpSession session, ModelMap model) {
+
+		logger.debug("registerComp start");
+
+		ModelAndView modelAndView = new ModelAndView();
+
+		UserForm sUserForm = (UserForm)session.getAttribute(SESSION_FROM_KEY);
+
+		modelAndView.setViewName("ss01/userRegComp");
+
+		logger.debug("registerComp end");
+
+		return modelAndView;
+	}
+
+	/**
+	 * 入力画面に戻る<br>
+	 * <p>
+	 * sessionの値をFormに詰め替える。
+	 * </p>
+	 * @return 画面
+	 */
+	@RequestMapping(value = "/backRegister", method = RequestMethod.POST)
+	public ModelAndView backRegister(@ModelAttribute UserForm userForm,
+			HttpSession session, ModelMap model) {
+
+		logger.debug("backRegister start");
+
+		ModelAndView modelAndView = new ModelAndView();
+
+		UserForm sUserForm = (UserForm)session.getAttribute(SESSION_FROM_KEY);
+
+		modelAndView.addObject(ATTR_FROM_KEY, sUserForm);
+		modelAndView.setViewName("ss01/userReg");
+
+		logger.debug("backRegister end");
 
 		return modelAndView;
 	}
