@@ -1,5 +1,6 @@
 package jp.co.skill.spider.ss01.controller;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import jp.co.skill.spider.ss01.form.UserForm;
@@ -69,24 +70,24 @@ public class UserController {
 	 * </p>
 	 * @return 画面
 	 */
-	@RequestMapping(value="/registerConf", method=RequestMethod.POST )
+	@RequestMapping(value = "/registerConf", method = RequestMethod.POST)
 	public ModelAndView registerConf(@Valid @ModelAttribute UserForm userForm,
-				BindingResult result,
-			   ModelMap model) {
+			HttpSession session, BindingResult result, ModelMap model) {
 
 		logger.debug("registerConf start");
 
 		ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("userForm", userForm);
+		modelAndView.addObject("userForm", userForm);
 
-        //Validation Errorがある場合
+		// Validation Errorがある場合
 		if (result.hasErrors()) {
 			String message = "Please fil requered field.";
 			modelAndView.addObject("message", message);
 			modelAndView.setViewName("ss01/userReg");
 			return modelAndView;
-		}else {
-			//success pattern
+		} else {
+			// success pattern
+			session.setAttribute("sssionUserForm", userForm);
 			modelAndView.setViewName("ss01/userRegConf");
 		}
 

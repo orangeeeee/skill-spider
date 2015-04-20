@@ -14,11 +14,11 @@
 <table>
 	<tr>
 		<th align="left">名前</th>
-		<td><c:out value="${userForm.name}" /></td>
+		<td><c:out value="${sssionUserForm.name}" /></td>
 	</tr>
 	<tr>
 		<th align="left">パスワード</th>
-		<td><c:out value="${userForm.password}" /></td>
+		<td><c:out value="${sssionUserForm.password}" /></td>
 	</tr>
 <form:hidden path="password"/>
 <form:hidden path="name"/>
