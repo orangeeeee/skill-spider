@@ -10,7 +10,8 @@
 </head>
 <body>
 <h1>結果確認画面</h1>
-<form:form id="oForm" modelAttribute="userForm" method="post">
+<form:form id="oForm" method="post">
+<input type="hidden" id="contextPath" value="${pageContext.servletContext.contextPath}" />
 <table>
 	<tr>
 		<th align="left">名前</th>
@@ -20,16 +21,14 @@
 		<th align="left">パスワード</th>
 		<td><c:out value="${sssionUserForm.password}" /></td>
 	</tr>
-<form:hidden path="password"/>
-<form:hidden path="name"/>
 </table>
 </form:form>
 <script type="text/javascript">
 function submitPrc(btnName) {
-
+	var contextPath = document.getElementById('contextPath').value;
 	var oForm = document.getElementById('oForm');
 	oForm.method = "post";
-	oForm.action = "/orangeSpring/" + btnName;
+	oForm.action = contextPath + "/" + btnName;
 	oForm.submit();
 }
 </script>

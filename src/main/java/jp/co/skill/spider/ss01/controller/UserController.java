@@ -77,16 +77,18 @@ public class UserController {
 		logger.debug("registerConf start");
 
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject("userForm", userForm);
 
 		// Validation Errorがある場合
 		if (result.hasErrors()) {
 			String message = "Please fil requered field.";
+			//エラーの場合、Formの値を表示。
+			modelAndView.addObject("userForm", userForm);
 			modelAndView.addObject("message", message);
 			modelAndView.setViewName("ss01/userReg");
 			return modelAndView;
 		} else {
 			// success pattern
+			//正常遷移の場合、HttpSessionの値を表示させる。
 			session.setAttribute("sssionUserForm", userForm);
 			modelAndView.setViewName("ss01/userRegConf");
 		}
