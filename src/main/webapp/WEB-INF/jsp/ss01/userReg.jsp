@@ -17,7 +17,7 @@
 		<th align="left">名前</th>
 		<td>
 			<form:input path="name" placeholder="山田 太郎"/>
-			<form:errors path="sUserId" cssStyle="color: red;"/>
+			<form:errors path="name" cssStyle="color: red;"/>
 		</td>
 	</tr>
 	<tr>

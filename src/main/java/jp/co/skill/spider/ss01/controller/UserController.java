@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -30,6 +32,11 @@ public class UserController {
 
 	@Autowired
 	private UserValidator userValidator;
+
+	@InitBinder("userForm")
+	private void initBinder(WebDataBinder binder) {
+		binder.setValidator(userValidator);
+	}
 
 	/**
 	 * ユーザ登録入力画面表示
@@ -65,17 +72,20 @@ public class UserController {
 	 * 確認画面表示<br>
 	 * <p>
 	 * 引数のModelAttribute<br>
-	 *
-	 * @ModelAttributeで指定された"customer"がModelから取り出されます。<br>
+	 *<br/>
+	 * '@ModelAttribute'で指定された"customer"がModelから取り出されます。<br>
 	 * もしModelに"customer"がない場合、新たにCustomerをnewして、Modelに設定します。
 	 * <br/>
-	 * ★★注意点 ：'@Valid'は先頭
+	 * ★☆★★ 注意点 ★★☆★<br/>
+	 * １．'@Valid'は先頭<br/>
+	 * ２．BindingResultは、Validation対象のオブジェクトの直後（次）の引数として定義すること。<br/>
+	 * そうでない場合、404エラーとなる。
 	 * </p>
 	 * @return 画面
 	 */
 	@RequestMapping(value = "/registerConf", method = RequestMethod.POST)
 	public ModelAndView registerConf(@Valid @ModelAttribute UserForm userForm,
-			HttpSession session, BindingResult result, ModelMap model) {
+			BindingResult result, HttpSession session, ModelMap model) {
 
 		logger.debug("registerConf start");
 
