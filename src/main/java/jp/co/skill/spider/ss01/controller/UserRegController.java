@@ -4,6 +4,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import jp.co.skill.spider.ss01.form.UserForm;
+import jp.co.skill.spider.ss01.service.UserService;
 import jp.co.skill.spider.ss01.validation.UserValidator;
 
 import org.apache.log4j.Logger;
@@ -19,12 +20,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 
-
+/**
+ * 登録、登録確認、登録完了画面コントローラー
+ * @author yuuichi
+ */
 @Controller
-public class UserController {
+public class UserRegController {
 
 
-	private static final Logger logger = Logger.getLogger(UserController.class);
+	private static final Logger logger = Logger.getLogger(UserRegController.class);
 
 	private static final String ATTR_FROM_KEY = "userForm";
 
@@ -32,6 +36,9 @@ public class UserController {
 
 	@Autowired
 	private UserValidator userValidator;
+
+	@Autowired
+	private UserService userService;
 
 	@InitBinder("userForm")
 	private void initBinder(WebDataBinder binder) {
@@ -100,12 +107,16 @@ public class UserController {
 			modelAndView.addObject("message", message);
 			modelAndView.setViewName("ss01/userReg");
 			return modelAndView;
-		} else {
-			// success pattern
-			//正常遷移の場合、HttpSessionの値を表示させる。
-			session.setAttribute(SESSION_FROM_KEY, userForm);
-			modelAndView.setViewName("ss01/userRegConf");
 		}
+
+		// success pattern
+		//正常遷移の場合、HttpSessionの値を表示さる。
+		session.setAttribute(SESSION_FROM_KEY, userForm);
+
+
+
+
+		modelAndView.setViewName("ss01/userRegConf");
 
 		logger.debug("registerConf end");
 
@@ -129,6 +140,8 @@ public class UserController {
 		ModelAndView modelAndView = new ModelAndView();
 
 		UserForm sUserForm = (UserForm)session.getAttribute(SESSION_FROM_KEY);
+
+		userService.register(sUserForm);
 
 		modelAndView.setViewName("ss01/userRegComp");
 
