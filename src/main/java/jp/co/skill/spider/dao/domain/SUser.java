@@ -26,10 +26,10 @@ public class SUser {
 			String introduceMyself) {
 
 		this.sUserId = sUserId;
-		this.sUserId = password;
-		this.sUserId = name;
-		this.sUserId = eMail;
-		this.sUserId = introduceMyself;
+		this.password = password;
+		this.name = name;
+		this.eMail = eMail;
+		this.introduceMyself = introduceMyself;
 	}
 
 	public String getSUserId() {

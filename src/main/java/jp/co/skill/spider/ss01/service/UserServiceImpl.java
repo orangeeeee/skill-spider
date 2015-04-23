@@ -16,7 +16,8 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void register(UserForm sUserForm) {
 
-		int insCnt = sUserMapper.insert(new SUser("testUser-1", "p@ssw0rd", "Orage", "", ""));
+		SUser s_user = new SUser("testUser-1", "pssw0rd", "Orage", "a", "b");
+		int insCnt = sUserMapper.insert(s_user);
 
 		if(insCnt > 0) {
 			System.out.println("success insert");
