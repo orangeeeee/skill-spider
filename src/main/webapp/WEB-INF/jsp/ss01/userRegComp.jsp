@@ -6,10 +6,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>comp</title>
+<title>ユーザ登録完了画面</title>
 </head>
 <body>
-<h1>登録完了画面</h1>
+<h1>ユーザ登録完了画面</h1>
 <form:form id="oForm" method="post">
 <input type="hidden" id="contextPath" value="${pageContext.servletContext.contextPath}" />
 

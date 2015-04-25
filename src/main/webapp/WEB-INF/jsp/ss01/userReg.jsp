@@ -9,10 +9,17 @@
 <title>ユーザ登録画面</title>
 </head>
 <body>
-<h1>入力画面</h1>
+<h1>ユーザ登録画面</h1>
 <form:form id="oForm" modelAttribute="userForm" method="post">
 <input type="hidden" id="contextPath" value="${pageContext.servletContext.contextPath}" />
 <table>
+	<tr>
+		<th align="left">ユーザID</th>
+		<td>
+			<form:input path="sUserId" placeholder="英数記号の組合せ（7桁以上）"/>
+			<form:errors path="sUserId" cssStyle="color: red;"/>
+		</td>
+	</tr>
 	<tr>
 		<th align="left">名前</th>
 		<td>
@@ -21,9 +28,31 @@
 		</td>
 	</tr>
 	<tr>
+		<th align="left">e-mail</th>
+		<td>
+			<form:input path="eMail" placeholder="test@gmail.com"/>
+			<form:errors path="eMail" cssStyle="color: red;"/>
+		</td>
+	</tr>
+	<tr>
 		<th align="left">パスワード</th>
 		<td>
-			<form:input path="password"/>
+			<form:input path="password" placeholder="英数記号の組合せ（7桁以上）"/>
+			<form:errors path="password" cssStyle="color: red;"/>
+		</td>
+	</tr>
+	<tr>
+		<th align="left">パスワード（確認用）</th>
+		<td>
+			<form:input path="passwordConf" placeholder="パスワード確認用"/>
+			<form:errors path="passwordConf" cssStyle="color: red;"/>
+		</td>
+	</tr>
+	<tr>
+		<th align="left">自己紹介</th>
+		<td>
+			<form:textarea path="introduceMyself" cols="30" rows="5" placeholder="Java8,Springが得意です。"/>
+			<form:errors path="introduceMyself" cssStyle="color: red;"/>
 		</td>
 	</tr>
 </table>

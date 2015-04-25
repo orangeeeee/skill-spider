@@ -11,17 +11,19 @@ public class UserForm {
 
 	private String password;
 
+	private String passwordConf;
+
 	private String name;
 
 	private String eMail;
 
 	private String introduceMyself;
 
-	public String getSUserId() {
+	public String getsUserId() {
 		return sUserId;
 	}
 
-	public void setSUserId(String sUserId) {
+	public void setsUserId(String sUserId) {
 		this.sUserId = sUserId;
 	}
 
@@ -33,6 +35,14 @@ public class UserForm {
 		this.password = password;
 	}
 
+	public String getPasswordConf() {
+		return passwordConf;
+	}
+
+	public void setPasswordConf(String passwordConf) {
+		this.passwordConf = passwordConf;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -41,11 +51,11 @@ public class UserForm {
 		this.name = name;
 	}
 
-	public String getEMail() {
+	public String geteMail() {
 		return eMail;
 	}
 
-	public void setEMail(String eMail) {
+	public void seteMail(String eMail) {
 		this.eMail = eMail;
 	}
 
@@ -56,5 +66,4 @@ public class UserForm {
 	public void setIntroduceMyself(String introduceMyself) {
 		this.introduceMyself = introduceMyself;
 	}
-
 }

@@ -100,6 +100,7 @@ public class UserRegController {
 
 		// Validation Errorがある場合
 		if (result.hasErrors()) {
+
 			String message = "Please fil requered field.";
 			//エラーの場合、Formの値を表示。
 			//TODO 直接設定するの良くないんでしたっけ？
@@ -112,9 +113,6 @@ public class UserRegController {
 		// success pattern
 		//正常遷移の場合、HttpSessionの値を表示さる。
 		session.setAttribute(SESSION_FROM_KEY, userForm);
-
-
-
 
 		modelAndView.setViewName("ss01/userRegConf");
 

@@ -3,23 +3,44 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Insert title here</title>
+<title>ユーザ登録確認画面</title>
 </head>
 <body>
-<h1>結果確認画面</h1>
-<form:form id="oForm" method="post">
+<h1>ユーザ登録確認画面</h1>
+<form:form id="oForm" modelAttribute="sssionUserForm" method="post">
 <input type="hidden" id="contextPath" value="${pageContext.servletContext.contextPath}" />
 <table>
+	<tr>
+		<th align="left">ユーザID</th>
+		<td><c:out value="${sssionUserForm.sUserId}" /></td>
+	</tr>
 	<tr>
 		<th align="left">名前</th>
 		<td><c:out value="${sssionUserForm.name}" /></td>
 	</tr>
 	<tr>
+		<th align="left">email</th>
+		<td><c:out value="${sssionUserForm.eMail}" /></td>
+	</tr>
+	<tr>
 		<th align="left">パスワード</th>
 		<td><c:out value="${sssionUserForm.password}" /></td>
+	</tr>
+	<tr>
+		<th align="left">パスワード（確認用）</th>
+		<td><c:out value="${sssionUserForm.passwordConf}" /></td>
+	</tr>
+	<tr>
+		<th align="left">自己紹介</th>
+		<td>
+			<textarea rows="5" cols="30" readonly="readonly">
+				<c:out value="${sssionUserForm.introduceMyself}" />
+			</textarea>
+		</td>
 	</tr>
 </table>
 <input type="button" name="_event_processd" onclick="submitPrc('backRegister')" value="戻る">

@@ -12,25 +12,6 @@ public class SUser {
 
 	private String introduceMyself;
 
-	/**
-	 * コンストラクタ
-	 * すべての値を格納する際に使用する。
-	 *
-	 * @param sUserId ユーザID
-	 * @param password パスワード
-	 * @param name 名前
-	 * @param eMail e-mail
-	 * @param introduceMyself 自己紹介
-	 */
-	public SUser(String sUserId, String password, String name, String eMail,
-			String introduceMyself) {
-
-		this.sUserId = sUserId;
-		this.password = password;
-		this.name = name;
-		this.eMail = eMail;
-		this.introduceMyself = introduceMyself;
-	}
 
 	public String getSUserId() {
 		return sUserId;
@@ -69,6 +50,30 @@ public class SUser {
 	}
 
 	public void setIntroduceMyself(String introduceMyself) {
+		this.introduceMyself = introduceMyself;
+	}
+
+
+	public SUser() {
+
+	}
+	/**
+	 * コンストラクタ
+	 * すべての値を格納する際に使用する。
+	 *
+	 * @param sUserId ユーザID
+	 * @param password パスワード
+	 * @param name 名前
+	 * @param eMail e-mail
+	 * @param introduceMyself 自己紹介
+	 */
+	public SUser(String sUserId, String password, String name, String eMail,
+			String introduceMyself) {
+
+		this.sUserId = sUserId;
+		this.password = password;
+		this.name = name;
+		this.eMail = eMail;
 		this.introduceMyself = introduceMyself;
 	}
 }

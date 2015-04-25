@@ -4,6 +4,7 @@ import jp.co.skill.spider.dao.SUserMapper;
 import jp.co.skill.spider.dao.domain.SUser;
 import jp.co.skill.spider.ss01.form.UserForm;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +17,8 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void register(UserForm sUserForm) {
 
-		SUser s_user = new SUser("testUser-1", "pssw0rd", "Orage", "a", "b");
+		SUser s_user = new SUser();
+		BeanUtils.copyProperties(sUserForm, s_user);
 		int insCnt = sUserMapper.insert(s_user);
 
 		if(insCnt > 0) {
