@@ -122,33 +122,6 @@ public class UserRegController {
 	}
 
 	/**
-	 * 完了画面表示<br>
-	 * <p>
-	 * sessionの値をDBにinsertする。
-	 * 成功した場合、完了画面に遷移する。
-	 * </p>
-	 * @return 画面
-	 */
-	@RequestMapping(value = "/registerComp", method = RequestMethod.POST)
-	public ModelAndView registerComp(@ModelAttribute UserForm userForm,
-			HttpSession session, ModelMap model) {
-
-		logger.debug("registerComp start");
-
-		ModelAndView modelAndView = new ModelAndView();
-
-		UserForm sUserForm = (UserForm)session.getAttribute(SESSION_FROM_KEY);
-
-		userService.register(sUserForm);
-
-		modelAndView.setViewName("ss01/userRegComp");
-
-		logger.debug("registerComp end");
-
-		return modelAndView;
-	}
-
-	/**
 	 * 入力画面に戻る<br>
 	 * <p>
 	 * sessionの値をFormに詰め替える。
@@ -169,6 +142,36 @@ public class UserRegController {
 		modelAndView.setViewName("ss01/userReg");
 
 		logger.debug("backRegister end");
+
+		return modelAndView;
+	}
+
+	/**
+	 * 完了画面表示<br>
+	 * <p>
+	 * sessionの値をDBにinsertする。
+	 * 成功した場合、完了画面に遷移する。
+	 * </p>
+	 * @return 画面
+	 */
+	@RequestMapping(value = "/registerComp", method = RequestMethod.POST)
+	public ModelAndView registerComp(@ModelAttribute UserForm userForm,
+			HttpSession session, ModelMap model) {
+
+		logger.debug("registerComp start");
+
+		ModelAndView modelAndView = new ModelAndView();
+
+		UserForm sUserForm = (UserForm)session.getAttribute(SESSION_FROM_KEY);
+
+		userService.register(sUserForm);
+
+		//登録確認画面用のSessionを削除。
+		session.setAttribute(SESSION_FROM_KEY, null);
+
+		modelAndView.setViewName("ss01/userRegComp");
+
+		logger.debug("registerComp end");
 
 		return modelAndView;
 	}
