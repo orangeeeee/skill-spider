@@ -19,12 +19,13 @@
 		</td>
 	</tr>
 </table>
-<c:forEach var="obj" items="${userSrchLstForm.userList}" varStatus="status">
-名前：<c:out value="${obj.name}"/><br>
+<c:forEach var="userList" items="${userSrchLstForm.userList}" varStatus="status">
 index：<c:out value="${status.index}"/><br>
+id：<c:out value="${userList.sUserId}"/>|
+名前：<c:out value="${userList.name}"/><br>
 </c:forEach>
 <br><br>
-<input type="button" name="_event_processd" onclick="submitPrc('registerConf')" value="確認">
+<input type="button" name="_event_processd" onclick="submitPrc('search')" value="検索">
 </form:form>
 <script type="text/javascript">
 function submitPrc(btnName) {

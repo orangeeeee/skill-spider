@@ -1,5 +1,7 @@
 package jp.co.skill.spider.ss01.service;
 
+import java.util.List;
+
 import jp.co.skill.spider.dao.SUserMapper;
 import jp.co.skill.spider.dao.domain.SUser;
 import jp.co.skill.spider.ss01.form.UserForm;
@@ -26,6 +28,15 @@ public class UserServiceImpl implements UserService {
 		}else {
 			System.out.println("failuer insert");
 		}
+	}
+
+	@Override
+	public List<SUser> search() {
+
+		// 一旦全権検索のみ後で条件つける。
+		List<SUser> resultList = sUserMapper.selectList();
+
+		return resultList;
 	}
 
 }

@@ -12,48 +12,36 @@ public class SUser {
 
 	private String introduceMyself;
 
-
-	public String getSUserId() {
+	public String getsUserId() {
 		return sUserId;
 	}
-
-	public void setSUserId(String sUserId) {
+	public void setsUserId(String sUserId) {
 		this.sUserId = sUserId;
 	}
-
 	public String getPassword() {
 		return password;
 	}
-
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
 	public String getName() {
 		return name;
 	}
-
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	public String getEMail() {
+	public String geteMail() {
 		return eMail;
 	}
-
-	public void setEMail(String eMail) {
+	public void seteMail(String eMail) {
 		this.eMail = eMail;
 	}
-
 	public String getIntroduceMyself() {
 		return introduceMyself;
 	}
-
 	public void setIntroduceMyself(String introduceMyself) {
 		this.introduceMyself = introduceMyself;
 	}
-
-
 	public SUser() {
 
 	}

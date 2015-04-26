@@ -40,6 +40,12 @@ public class UserRegController {
 	@Autowired
 	private UserService userService;
 
+
+	/**
+	 * validation処理<br/>
+	 * バインド処理<br/>
+	 * @param binder
+	 */
 	@InitBinder("userForm")
 	private void initBinder(WebDataBinder binder) {
 		binder.setValidator(userValidator);
@@ -47,7 +53,7 @@ public class UserRegController {
 
 	/**
 	 * ユーザ登録入力画面表示
-	 * @return 画面
+	 * @return ModelAndView
 	 */
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public ModelAndView register() {
@@ -88,7 +94,11 @@ public class UserRegController {
 	 * ２．BindingResultは、Validation対象のオブジェクトの直後（次）の引数として定義すること。<br/>
 	 * そうでない場合、404エラーとなる。
 	 * </p>
-	 * @return 画面
+	 * @param userForm
+	 * @param result
+	 * @param session
+	 * @param model
+	 * @return ModelAndView
 	 */
 	@RequestMapping(value = "/registerConf", method = RequestMethod.POST)
 	public ModelAndView registerConf(@Valid @ModelAttribute UserForm userForm,
@@ -126,7 +136,10 @@ public class UserRegController {
 	 * <p>
 	 * sessionの値をFormに詰め替える。
 	 * </p>
-	 * @return 画面
+	 * @param userForm
+	 * @param session
+	 * @param model
+	 * @return ModelAndView
 	 */
 	@RequestMapping(value = "/backRegister", method = RequestMethod.POST)
 	public ModelAndView backRegister(@ModelAttribute UserForm userForm,
@@ -152,7 +165,10 @@ public class UserRegController {
 	 * sessionの値をDBにinsertする。
 	 * 成功した場合、完了画面に遷移する。
 	 * </p>
-	 * @return 画面
+	 * @param userForm
+	 * @param session
+	 * @param model
+	 * @return ModelAndView
 	 */
 	@RequestMapping(value = "/registerComp", method = RequestMethod.POST)
 	public ModelAndView registerComp(@ModelAttribute UserForm userForm,

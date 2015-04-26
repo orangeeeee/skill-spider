@@ -4,9 +4,15 @@ Mapperの場所はどこでも良いが、javaファイルとセットで直す�
  -->
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="jp.co.skill.spider.dao.SUserMapper">
+
 	<insert id="insert" parameterType="jp.co.skill.spider.dao.domain.SUser">
 		INSERT INTO S_USER (s_user_id, password, name, e_mail, introduce_myself)
 		VALUES (#{sUserId}, #{password}, #{name}, #{eMail}, #{introduceMyself})
 	</insert>
+
+
+	<select id="selectList" resultType="jp.co.skill.spider.dao.domain.SUser">
+		SELECT * FROM S_USER
+	</select>
 
 </mapper>
