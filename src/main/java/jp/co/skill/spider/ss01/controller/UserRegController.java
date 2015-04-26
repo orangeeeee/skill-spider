@@ -55,7 +55,7 @@ public class UserRegController {
 	 * ユーザ登録入力画面表示
 	 * @return ModelAndView
 	 */
-	@RequestMapping(value = "/register", method = RequestMethod.GET)
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public ModelAndView register() {
 
 		logger.debug("register starts");

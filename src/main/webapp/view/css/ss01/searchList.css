@@ -1,0 +1,31 @@
+
+.result-table {
+	table-layout:fixed;
+    margin-top: 15px;
+    color: #666;
+    border: 2px solid #666;
+    border-collapse: separate;
+    border-spacing: 1px;
+}
+.result-table th {
+	text-align:left;
+    color:#444;
+    padding:5px;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #666;
+    background-color: #CCCC00;
+}
+.result-table td {
+    padding: 0px 0px;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    background-color: #fff;
+}
+
+.id_col {
+	width:150px !important;
+}
+
+.name_col {
+	width:250px !important;
+}
