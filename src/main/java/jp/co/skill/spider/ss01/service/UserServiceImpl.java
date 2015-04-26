@@ -20,6 +20,7 @@ public class UserServiceImpl implements UserService {
 	public void register(UserForm sUserForm) {
 
 		SUser s_user = new SUser();
+		//sUserFormからs_userへプロパティーのコピー
 		BeanUtils.copyProperties(sUserForm, s_user);
 		int insCnt = sUserMapper.insert(s_user);
 
@@ -39,4 +40,11 @@ public class UserServiceImpl implements UserService {
 		return resultList;
 	}
 
+	@Override
+	public SUser initRef(String sUserId) {
+
+		SUser resultData = sUserMapper.selectId(sUserId);
+
+		return resultData;
+	}
 }

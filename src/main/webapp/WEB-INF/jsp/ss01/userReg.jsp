@@ -57,7 +57,7 @@
 	</tr>
 </table>
 <br><br>
-<input type="button" name="_event_processd" onclick="submitPrc('registerConf')" value="確認">
+<input type="button" name="_event_processd" onclick="submitPrc('ss01\/registerConf')" value="確認">
 </form:form>
 <script type="text/javascript">
 function submitPrc(btnName) {

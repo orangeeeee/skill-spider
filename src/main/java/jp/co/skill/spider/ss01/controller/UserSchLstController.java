@@ -40,7 +40,7 @@ public class UserSchLstController {
 	 * 検索一覧画面初期表示
 	 * @return ModelAndView
 	 */
-	@RequestMapping(value = "/initSch", method = RequestMethod.GET)
+	@RequestMapping(value = "/ss01/initSch", method = RequestMethod.GET)
 	public ModelAndView initSch() {
 
 		logger.debug("initSch starts");
@@ -53,7 +53,7 @@ public class UserSchLstController {
 	 * 検索ボタン押下時処理
 	 * @return ModelAndView
 	 */
-	@RequestMapping(value = "/search", method = RequestMethod.POST)
+	@RequestMapping(value = "/ss01/search", method = RequestMethod.POST)
 	public ModelAndView search(@ModelAttribute UserForm userForm,
 			HttpSession session, ModelMap model) {
 

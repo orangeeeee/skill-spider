@@ -27,7 +27,6 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class UserRegController {
 
-
 	private static final Logger logger = Logger.getLogger(UserRegController.class);
 
 	private static final String ATTR_FROM_KEY = "userForm";
@@ -55,7 +54,7 @@ public class UserRegController {
 	 * ユーザ登録入力画面表示
 	 * @return ModelAndView
 	 */
-	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	@RequestMapping(value = "/ss01/register", method = RequestMethod.POST)
 	public ModelAndView register() {
 
 		logger.debug("register starts");
@@ -100,7 +99,7 @@ public class UserRegController {
 	 * @param model
 	 * @return ModelAndView
 	 */
-	@RequestMapping(value = "/registerConf", method = RequestMethod.POST)
+	@RequestMapping(value = "/ss01/registerConf", method = RequestMethod.POST)
 	public ModelAndView registerConf(@Valid @ModelAttribute UserForm userForm,
 			BindingResult result, HttpSession session, ModelMap model) {
 
@@ -141,7 +140,7 @@ public class UserRegController {
 	 * @param model
 	 * @return ModelAndView
 	 */
-	@RequestMapping(value = "/backRegister", method = RequestMethod.POST)
+	@RequestMapping(value = "/ss01/backRegister", method = RequestMethod.POST)
 	public ModelAndView backRegister(@ModelAttribute UserForm userForm,
 			HttpSession session, ModelMap model) {
 
@@ -170,7 +169,7 @@ public class UserRegController {
 	 * @param model
 	 * @return ModelAndView
 	 */
-	@RequestMapping(value = "/registerComp", method = RequestMethod.POST)
+	@RequestMapping(value = "/ss01/registerComp", method = RequestMethod.POST)
 	public ModelAndView registerComp(@ModelAttribute UserForm userForm,
 			HttpSession session, ModelMap model) {
 

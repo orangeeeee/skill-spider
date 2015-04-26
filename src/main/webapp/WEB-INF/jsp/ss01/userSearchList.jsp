@@ -13,10 +13,10 @@
 <h1>ユーザ検索一覧画面</h1>
 <form:form id="oForm" modelAttribute="userSrchLstForm" method="post">
 <input type="hidden" id="contextPath" value="${pageContext.servletContext.contextPath}" />
-<input type="button" name="_event_processd" onclick="submitPrc('register')" value="新規登録">
+<input type="button" name="_event_processd" onclick="submitPrc('ss01\/register')" value="新規登録">
 <br/>
 <br/>
-<input type="button" name="_event_processd" onclick="submitPrc('search')" value="検索">
+<input type="button" name="_event_processd" onclick="submitPrc('ss01\/search')" value="検索">
 <hr>
 
 <table class="result-table" >
@@ -48,6 +48,10 @@
 	</c:forEach>
 </table>
 <br><br>
+<%-- <form:hidden path="sUserId"/>は以下様にHTMLに展開される。
+	<input id="sUserId" name="sUserId" type="hidden" value="">
+--%>
+<form:hidden path="sUserId"/>
 </form:form>
 <script type="text/javascript">
 function submitPrc(btnName) {
@@ -59,9 +63,14 @@ function submitPrc(btnName) {
 };
 
 function clickIdLink(index) {
-	var id_name = "userList" + index + ".sUserId";
-	var sUserId = document.getElementById(id_name).value;
-	alert(sUserId);
+
+	//検索キーを取得
+	var sUserId = document.getElementById("userList" + index + ".sUserId").value;
+
+	//検索キーを設定
+	document.getElementById("sUserId").value = sUserId;
+
+	submitPrc('ss01\/ref');
 };
 </script>
 </body>

@@ -16,4 +16,10 @@ public interface UserService {
 	 * 検索処理
 	 */
 	public List<SUser> search();
+
+	/**
+	 * 照会画面表示処理
+	 */
+	public SUser initRef(String sUserId);
+
 }

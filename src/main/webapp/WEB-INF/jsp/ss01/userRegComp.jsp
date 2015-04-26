@@ -14,7 +14,7 @@
 <input type="hidden" id="contextPath" value="${pageContext.servletContext.contextPath}" />
 
 <br/>
-<input type="button" name="_event_processd" onclick="submitPrc('registerComp')" value="一覧に戻る">
+<input type="button" name="_event_processd" onclick="submitPrc('ss01\/registerComp')" value="一覧に戻る">
 </form:form>
 <script type="text/javascript">
 function submitPrc(btnName) {
