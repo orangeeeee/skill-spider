@@ -66,4 +66,5 @@ public class UserForm {
 	public void setIntroduceMyself(String introduceMyself) {
 		this.introduceMyself = introduceMyself;
 	}
+
 }

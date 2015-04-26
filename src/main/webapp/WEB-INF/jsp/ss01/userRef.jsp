@@ -3,17 +3,17 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>ユーザ登録確認画面</title>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/view/css/ss01/ss01-common.css">
+<title>ユーザ情報照会画面</title>
 </head>
 <body>
-<h1>ユーザ登録確認画面</h1>
+<h1>ユーザ情報照会画面</h1>
 <form:form id="oForm" modelAttribute="userForm" method="post">
 <input type="hidden" id="contextPath" value="${pageContext.servletContext.contextPath}" />
-<table>
+<table class="info-table">
 	<tr>
 		<th align="left">ユーザID</th>
 		<td><c:out value="${userForm.sUserId}" /></td>
@@ -30,13 +30,12 @@
 		<th align="left">自己紹介</th>
 		<td>
 			<textarea rows="5" cols="30" readonly="readonly">
-				<c:out value="${sssionUserForm.introduceMyself}" />
+				<c:out value="${userForm.introduceMyself}" />
 			</textarea>
 		</td>
 	</tr>
 </table>
-<input type="button" name="_event_processd" onclick="submitPrc('backRegister')" value="戻る">
-<input type="button" name="_event_processd" onclick="submitPrc('registerComp')" value="登録">
+<input type="button" name="_event_processd" onclick="submitPrc('backRegister')" value="一覧へ戻る">
 </form:form>
 <script type="text/javascript">
 function submitPrc(btnName) {

@@ -6,13 +6,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/view/css/ss01/ss01-common.css">
 <title>ユーザ登録画面</title>
 </head>
 <body>
 <h1>ユーザ登録画面</h1>
 <form:form id="oForm" modelAttribute="userForm" method="post">
 <input type="hidden" id="contextPath" value="${pageContext.servletContext.contextPath}" />
-<table>
+<table class="info-table">
 	<tr>
 		<th align="left">ユーザID</th>
 		<td>
