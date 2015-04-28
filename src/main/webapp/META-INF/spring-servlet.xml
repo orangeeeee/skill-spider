@@ -13,15 +13,6 @@
 	<!-- @Autowired,@Resourceを利用する場合の宣言 -->
 	<mvc:annotation-driven/>
 
-	<!-- static resource たぶんこの辺もすべて不要 -->
-	<mvc:resources mapping="/resources/**" location="/WEB-INF/resources"/>
-	<!-- spring-servlet用設定 application.propertiesに移せる。 -->
-	<bean id="viewResolver"
-		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix" value="/WEB-INF/jsp/" />
-		<property name="suffix" value=".jsp" />
-	</bean>
-
 	<!-- Multipart対応 -->
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.support.StandardServletMultipartResolver" />
@@ -35,4 +26,14 @@
 		<property name="validationMessageSource" ref="messageSource"/>
 	</bean>
 
+	<mvc:resources mapping="/resources/**" location="/WEB-INF/resources"/>
+	<!-- ViewResolver Setting
+	★☆★ Spring Bootの場合、application.propertiesnに設定する。★☆★
+	spring.view.prefix= # MVC view prefix
+	spring.view.suffix= # ... and suffix
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	   <property name="prefix" value="/WEB-INF/jsp/"/>
+	   <property name="suffix" value=".jsp"/>
+	 </bean>
+	 -->
 </beans>

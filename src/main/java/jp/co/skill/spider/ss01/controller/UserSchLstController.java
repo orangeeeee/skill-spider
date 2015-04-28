@@ -50,6 +50,10 @@ public class UserSchLstController {
 	}
 
 	/**
+	 * 検索を非同期処理にする予定（ソートだけにするか迷っているところ。
+	 * http://d.hatena.ne.jp/ryoasai/20110203/1296749495
+	 */
+	/**
 	 * 検索ボタン押下時処理
 	 * @return ModelAndView
 	 */

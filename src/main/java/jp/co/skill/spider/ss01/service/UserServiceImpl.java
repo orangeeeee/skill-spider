@@ -4,10 +4,13 @@ import java.util.List;
 
 import jp.co.skill.spider.dao.SUserMapper;
 import jp.co.skill.spider.dao.domain.SUser;
+import jp.co.skill.spider.exception.BussinessException;
 import jp.co.skill.spider.ss01.form.UserForm;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
+import org.springframework.dao.PessimisticLockingFailureException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,18 +19,34 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private SUserMapper sUserMapper;
 
+	/**
+	 *
+	 */
 	@Override
-	public void register(UserForm sUserForm) {
+	public void register(UserForm sUserForm) throws BussinessException {
 
 		SUser s_user = new SUser();
 		//sUserFormからs_userへプロパティーのコピー
 		BeanUtils.copyProperties(sUserForm, s_user);
-		int insCnt = sUserMapper.insert(s_user);
 
-		if(insCnt > 0) {
-			System.out.println("success insert");
-		}else {
-			System.out.println("failuer insert");
+		try {
+
+			int insCnt = sUserMapper.insert(s_user);
+
+			if(insCnt > 0) {
+				System.out.println("success insert");
+			}else {
+				System.out.println("failuer insert");
+			}
+
+		}catch(DuplicateKeyException plfe) {
+
+			/**
+			 * DuplicateKeyException
+			 * 一意制約違反が発生した場合に発生する例外。
+			 * 今回のようにsequenceを使用していない場合に使う。
+			 */
+			throw new BussinessException("");
 		}
 	}
 
@@ -35,6 +54,13 @@ public class UserServiceImpl implements UserService {
 	public List<SUser> search() {
 
 		// 一旦全権検索のみ後で条件つける。
+		/*
+		 * SQLインジェクション対策はこれから入れる。
+		 * 以下、参考サイト
+		 * https://terasolunaorg.github.io/guideline/public_review/ArchitectureInDetail/DataAccessCommon.html
+		 * http://www.tokumaru.org/d/20080601.html
+		 *
+		 */
 		List<SUser> resultList = sUserMapper.selectList();
 
 		return resultList;
@@ -55,12 +81,25 @@ public class UserServiceImpl implements UserService {
 		//sUserFormからs_userへプロパティーのコピー
 		BeanUtils.copyProperties(sUserForm, s_user);
 
-		int insCnt = sUserMapper.update(s_user);
+		try {
 
-		if(insCnt > 0) {
-			System.out.println("success insert");
-		}else {
-			System.out.println("failuer insert");
+			int insCnt = sUserMapper.update(s_user);
+
+			if(insCnt > 0) {
+				System.out.println("success insert");
+			}else {
+				System.out.println("failuer insert");
+			}
+		}catch(PessimisticLockingFailureException plfe) {
+
+			/*
+			 * PessimisticLockingFailureExceptionは<br/>
+			 * 悲観ロックに成功しなかった場合に発生する例外。<br/>
+			 * 他の処理で同一データがロックされており、<br/>
+			 * ロック解放待ちのタイムアウト時間を<br/>
+			 * 超えてもロックが解放されない場合に発生する。<br/>
+			 */
+
 		}
 
 	}

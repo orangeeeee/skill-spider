@@ -3,6 +3,7 @@ package jp.co.skill.spider.ss01.controller;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import jp.co.skill.spider.exception.BussinessException;
 import jp.co.skill.spider.ss01.form.UserForm;
 import jp.co.skill.spider.ss01.service.UserService;
 import jp.co.skill.spider.ss01.validation.UserValidator;
@@ -43,6 +44,19 @@ public class UserRegController {
 	/**
 	 * validation処理<br/>
 	 * バインド処理<br/>
+	 * <p>
+	 * 補足（Spring Frameworkの思想）
+	 * バリデーションがビジネスロジックを考慮すべきか否かは大きな問題だ。<br/>
+	 * これには賛成、反対の両方の答えがあり、Springでは<br/>
+	 * そのどちらも除外しないバリデーション(とデータバインディング)のための設計を提示している。<br/>
+	 * バリデーションは仕様的にウェブ層と結びつけられないようにすべきであり、簡単にローカライズできるべきであり、<br/>
+	 * どんなバリデータでもプラグイン可能とすべきだ。上記を考慮して、<br/>
+	 * Springでは基本的で尚且つアプリケーションの全ての層で利用可能なValidatorインタフェースを実現した。
+	 * データバインディングはユーザの入力をアプリケーション(もしくはユーザの入力を処理するために使うオブジェクト)の<br/>
+	 * ドメインモデルに動的にバインドできるようにする便利なものだ。Springではまさにそれを行う、<br/>
+	 * いわゆるDataBinderが用意されている。ValidatorとDataBinderはバリデーションパッケージをなし、<br/>
+	 * これは主にMVCフレームワークで用いられるが、特にこれだけに限定されたものではない。
+	 * </p>
 	 * @param binder
 	 */
 	@InitBinder("userForm")
@@ -179,7 +193,15 @@ public class UserRegController {
 
 		UserForm sUserForm = (UserForm)session.getAttribute(SESSION_FROM_KEY);
 
-		userService.register(sUserForm);
+		try {
+
+			userService.register(sUserForm);
+
+		}catch (BussinessException be) {
+
+
+			//TODO 前の画面に戻る。
+		}
 
 		//登録確認画面用のSessionを削除。
 		session.setAttribute(SESSION_FROM_KEY, null);

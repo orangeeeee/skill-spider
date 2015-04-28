@@ -58,6 +58,7 @@ public class UserUpdController {
 		}
 
 		BeanUtils.copyProperties(resultData, userForm);
+		userForm.setPasswordConf(userForm.getPassword());
 
 		modelAndView.addObject(ATTR_FROM_KEY, userForm);
 		modelAndView.setViewName("ss01/userUpd");
