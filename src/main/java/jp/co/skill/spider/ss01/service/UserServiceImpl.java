@@ -41,10 +41,27 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public SUser initRef(String sUserId) {
+	public SUser getUserInfo(String sUserId) {
 
 		SUser resultData = sUserMapper.selectId(sUserId);
 
 		return resultData;
+	}
+
+	@Override
+	public void update(UserForm sUserForm) {
+
+		SUser s_user = new SUser();
+		//sUserFormからs_userへプロパティーのコピー
+		BeanUtils.copyProperties(sUserForm, s_user);
+
+		int insCnt = sUserMapper.update(s_user);
+
+		if(insCnt > 0) {
+			System.out.println("success insert");
+		}else {
+			System.out.println("failuer insert");
+		}
+
 	}
 }

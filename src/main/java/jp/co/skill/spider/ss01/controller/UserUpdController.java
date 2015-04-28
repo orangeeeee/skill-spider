@@ -3,31 +3,27 @@ package jp.co.skill.spider.ss01.controller;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import jp.co.skill.spider.dao.domain.SUser;
 import jp.co.skill.spider.ss01.form.UserForm;
 import jp.co.skill.spider.ss01.service.UserService;
 import jp.co.skill.spider.ss01.validation.UserValidator;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-
-/**
- * 登録、登録確認、登録完了画面コントローラー
- * @author yuuichi
- */
 @Controller
-public class UserRegController {
+public class UserUpdController {
 
-	private static final Logger logger = Logger.getLogger(UserRegController.class);
+	private static final Logger logger = Logger.getLogger(UserUpdController.class);
 
 	private static final String ATTR_FROM_KEY = "userForm";
 
@@ -39,45 +35,38 @@ public class UserRegController {
 	@Autowired
 	private UserService userService;
 
+	@RequestMapping(value = "/ss01/update", method = RequestMethod.POST)
+	public ModelAndView update(@ModelAttribute UserForm userForm,
+			HttpSession session, ModelMap model) {
 
-	/**
-	 * validation処理<br/>
-	 * バインド処理<br/>
-	 * @param binder
-	 */
-	@InitBinder("userForm")
-	private void initBinder(WebDataBinder binder) {
-		binder.setValidator(userValidator);
+		logger.debug("update start");
+
+		ModelAndView modelAndView = new ModelAndView();
+
+		if(StringUtils.isEmpty(userForm.getsUserId())) {
+			//エラー処理
+
+			logger.debug("id is null");
+		}
+
+		SUser resultData = userService.getUserInfo(userForm.getsUserId());
+
+
+		//TODO データが取得できなかった場合のエラー処理
+		if(resultData == null) {
+
+		}
+
+		BeanUtils.copyProperties(resultData, userForm);
+
+		modelAndView.addObject(ATTR_FROM_KEY, userForm);
+		modelAndView.setViewName("ss01/userUpd");
+
+		logger.debug("update end");
+
+		return modelAndView;
 	}
 
-	/**
-	 * ユーザ登録入力画面表示
-	 * @return ModelAndView
-	 */
-	@RequestMapping(value = "/ss01/register", method = RequestMethod.POST)
-	public ModelAndView register() {
-
-		logger.debug("register starts");
-
-		//NOTE
-		/*------------------------------------------------------------------------
-		 * <form:form id="oForm" modelAttribute="customer" method="post">
-		 * 第二引数は、form:formタグのmodelAttributetタグと同一名を付けること!!
-		 *-----------------------------------------------------------------------*/
-		/*----------------------------------------------------------------
-		 * public ModelAndView(View view(遷移Path),
-         *          String modelName,
-         *           Object modelObject)
-		 *	Convenient constructor to take a single model object.
-		 *	Parameters:
-	 	 *	view - View object to render
-		 *	modelName - name of the single entry in the model
-		 *	modelObject - the single model object
-		/---------------------------------------------------------------- */
-		logger.debug("register end");
-
-		return new ModelAndView("ss01/userReg", ATTR_FROM_KEY, new UserForm());
-	}
 
 
 	/**
@@ -99,11 +88,11 @@ public class UserRegController {
 	 * @param model
 	 * @return ModelAndView
 	 */
-	@RequestMapping(value = "/ss01/registerConf", method = RequestMethod.POST)
-	public ModelAndView registerConf(@Valid @ModelAttribute UserForm userForm,
+	@RequestMapping(value = "/ss01/updConf", method = RequestMethod.POST)
+	public ModelAndView updateConf(@Valid @ModelAttribute UserForm userForm,
 			BindingResult result, HttpSession session, ModelMap model) {
 
-		logger.debug("registerConf start");
+		logger.debug("updateConf start");
 
 		ModelAndView modelAndView = new ModelAndView();
 
@@ -115,23 +104,27 @@ public class UserRegController {
 			//TODO 直接設定するの良くないんでしたっけ？
 			modelAndView.addObject(ATTR_FROM_KEY, userForm);
 			modelAndView.addObject("message", message);
-			modelAndView.setViewName("ss01/userReg");
+			modelAndView.setViewName("ss01/userUpd");
 			return modelAndView;
 		}
 
 		// success pattern
+
+		//UserIdを設定
+		UserForm sUserForm = (UserForm)session.getAttribute(SESSION_FROM_KEY);
+		userForm.setsUserId(sUserForm.getsUserId());
 		//正常遷移の場合、HttpSessionの値を表示さる。
 		session.setAttribute(SESSION_FROM_KEY, userForm);
 
-		modelAndView.setViewName("ss01/userRegConf");
+		modelAndView.setViewName("ss01/userUpdConf");
 
-		logger.debug("registerConf end");
+		logger.debug("updateConf end");
 
 		return modelAndView;
 	}
 
 	/**
-	 * 入力画面に戻る<br>
+	 * 更新画面に戻る<br>
 	 * <p>
 	 * sessionの値をFormに詰め替える。
 	 * </p>
@@ -140,20 +133,20 @@ public class UserRegController {
 	 * @param model
 	 * @return ModelAndView
 	 */
-	@RequestMapping(value = "/ss01/backRegister", method = RequestMethod.POST)
-	public ModelAndView backRegister(@ModelAttribute UserForm userForm,
+	@RequestMapping(value = "/ss01/backUpd", method = RequestMethod.POST)
+	public ModelAndView backUpdate(@ModelAttribute UserForm userForm,
 			HttpSession session, ModelMap model) {
 
-		logger.debug("backRegister start");
+		logger.debug("backUpdate start");
 
 		ModelAndView modelAndView = new ModelAndView();
 
 		UserForm sUserForm = (UserForm)session.getAttribute(SESSION_FROM_KEY);
 
 		modelAndView.addObject(ATTR_FROM_KEY, sUserForm);
-		modelAndView.setViewName("ss01/userReg");
+		modelAndView.setViewName("ss01/userUpd");
 
-		logger.debug("backRegister end");
+		logger.debug("backUpdate end");
 
 		return modelAndView;
 	}
@@ -169,25 +162,26 @@ public class UserRegController {
 	 * @param model
 	 * @return ModelAndView
 	 */
-	@RequestMapping(value = "/ss01/registerComp", method = RequestMethod.POST)
-	public ModelAndView registerComp(@ModelAttribute UserForm userForm,
+	@RequestMapping(value = "/ss01/updComp", method = RequestMethod.POST)
+	public ModelAndView updateComp(@ModelAttribute UserForm userForm,
 			HttpSession session, ModelMap model) {
 
-		logger.debug("registerComp start");
+		logger.debug("updateComp start");
 
 		ModelAndView modelAndView = new ModelAndView();
 
 		UserForm sUserForm = (UserForm)session.getAttribute(SESSION_FROM_KEY);
 
-		userService.register(sUserForm);
+		userService.update(sUserForm);
 
 		//登録確認画面用のSessionを削除。
 		session.setAttribute(SESSION_FROM_KEY, null);
 
-		modelAndView.setViewName("ss01/userRegComp");
+		modelAndView.setViewName("ss01/userUpdComp");
 
-		logger.debug("registerComp end");
+		logger.debug("updateComp end");
 
 		return modelAndView;
 	}
+
 }

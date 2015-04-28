@@ -13,10 +13,20 @@
 <h1>ユーザ情報照会画面</h1>
 <form:form id="oForm" modelAttribute="userForm" method="post">
 <input type="hidden" id="contextPath" value="${pageContext.servletContext.contextPath}" />
+<input type="button" name="_event_processd" onclick="submitPrc('ss01\/update')" value="更新画面へ">
+<input type="button" name="_event_processd" onclick="submitPrc('ss01\/userSchList')" value="一覧へ戻る">
+<br/>
 <table class="info-table">
 	<tr>
 		<th align="left">ユーザID</th>
-		<td><c:out value="${userForm.sUserId}" /></td>
+		<td>
+			<c:out value="${userForm.sUserId}" />
+			<%--
+				セキュリティー上良くない場合は
+				Sessionで受け渡しを行う為、hiddenではもたない。
+			 --%>
+			<form:hidden path="sUserId"/>
+		</td>
 	</tr>
 	<tr>
 		<th align="left">名前</th>
@@ -29,13 +39,11 @@
 	<tr>
 		<th align="left">自己紹介</th>
 		<td>
-			<textarea rows="5" cols="30" readonly="readonly">
-				<c:out value="${userForm.introduceMyself}" />
-			</textarea>
+			<textarea rows="5" cols="30" readonly="readonly"><c:out value="${userForm.introduceMyself}" /></textarea>
 		</td>
 	</tr>
 </table>
-<input type="button" name="_event_processd" onclick="submitPrc('backRegister')" value="一覧へ戻る">
+<br/>
 </form:form>
 <script type="text/javascript">
 function submitPrc(btnName) {

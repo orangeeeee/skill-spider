@@ -13,6 +13,11 @@ public interface UserService {
 	public void register(UserForm sUserForm);
 
 	/**
+	 * 更新処理
+	 */
+	public void update(UserForm sUserForm);
+
+	/**
 	 * 検索処理
 	 */
 	public List<SUser> search();
@@ -20,6 +25,6 @@ public interface UserService {
 	/**
 	 * 照会画面表示処理
 	 */
-	public SUser initRef(String sUserId);
+	public SUser getUserInfo(String sUserId);
 
 }

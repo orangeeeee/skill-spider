@@ -31,7 +31,7 @@ public class UserSchLstController {
 
 	private static final String ATTR_FROM_KEY = "userSrchLstForm";
 
-	private static final Logger logger = Logger.getLogger(UserRegController.class);
+	private static final Logger logger = Logger.getLogger(UserSchLstController.class);
 
 	@Autowired
 	private UserService userService;
@@ -68,6 +68,29 @@ public class UserSchLstController {
 		userSrchLstForm.setUserList(resuUserltList);
 
 		logger.debug("search end");
+
+		return new ModelAndView("ss01/userSearchList", ATTR_FROM_KEY, userSrchLstForm);
+	}
+
+	/**
+	 * 他の画面からの遷移時処理
+	 * @return ModelAndView
+	 */
+	@RequestMapping(value = "/ss01/userSchList", method = RequestMethod.POST)
+	public ModelAndView initOnSearch(@ModelAttribute UserForm userForm,
+			HttpSession session, ModelMap model) {
+
+		logger.debug("searchList starts");
+
+		UserSrchLstForm userSrchLstForm = new UserSrchLstForm();
+
+		//検索
+		List<SUser> resuUserltList = userService.search();
+
+		//検索結果を格納
+		userSrchLstForm.setUserList(resuUserltList);
+
+		logger.debug("searchList end");
 
 		return new ModelAndView("ss01/userSearchList", ATTR_FROM_KEY, userSrchLstForm);
 	}

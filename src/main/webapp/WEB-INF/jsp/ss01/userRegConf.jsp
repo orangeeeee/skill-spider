@@ -44,7 +44,7 @@
 		</td>
 	</tr>
 </table>
-<input type="button" name="_event_processd" onclick="submitPrc('ss01\/backRegister')" value="戻る">
+<input type="button" name="_event_processd" onclick="submitPrc('ss01\/backRegister')" value="修正">
 <input type="button" name="_event_processd" onclick="submitPrc('ss01\/registerComp')" value="登録">
 </form:form>
 <script type="text/javascript">

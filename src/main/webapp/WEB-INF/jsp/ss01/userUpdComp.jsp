@@ -7,15 +7,15 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/view/css/ss01/ss01-common.css">
-<title>ユーザ情報登録完了画面</title>
+<title>ユーザ情報更新完了画面</title>
 </head>
 <body>
-<h1>ユーザ情報登録完了画面</h1>
+<h1>ユーザ情報更新完了画面</h1>
 <form:form id="oForm" method="post">
 <input type="hidden" id="contextPath" value="${pageContext.servletContext.contextPath}" />
 
 <br/>
-<input type="button" name="_event_processd" onclick="submitPrc('ss01\/registerComp')" value="一覧に戻る">
+<input type="button" name="_event_processd" onclick="submitPrc('ss01\/userSchList')" value="一覧に戻る">
 </form:form>
 <script type="text/javascript">
 function submitPrc(btnName) {
