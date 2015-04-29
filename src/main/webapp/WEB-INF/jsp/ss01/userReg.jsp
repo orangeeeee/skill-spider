@@ -13,6 +13,8 @@
 <h1>ユーザ情報登録画面</h1>
 <form:form id="oForm" modelAttribute="userForm" method="post">
 <input type="hidden" id="contextPath" value="${pageContext.servletContext.contextPath}" />
+<input type="button" name="_event_processd" onclick="submitPrc('ss01\/userSchList')" value="一覧へ戻る">
+<br/>
 <table class="info-table">
 	<tr>
 		<th align="left">ユーザID</th>
@@ -57,8 +59,8 @@
 		</td>
 	</tr>
 </table>
-<br><br>
-<input type="button" name="_event_processd" onclick="submitPrc('ss01\/userSchList')" value="確認">
+<br/>
+<input type="button" name="_event_processd" onclick="submitPrc('ss01\/registerConf')" value="確認">
 </form:form>
 <script type="text/javascript">
 function submitPrc(btnName) {

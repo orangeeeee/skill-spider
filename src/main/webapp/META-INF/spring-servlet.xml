@@ -17,7 +17,7 @@
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.support.StandardServletMultipartResolver" />
 
-	<!-- validation設定 -->
+	<!-- ★☆★  validation設定 ⇒ MessageConfig.javaに設定を移動 ★☆★
 	<bean id="messageSource"
 			class="org.springframework.context.support.ResourceBundleMessageSource">
 			<property name="basename" value="messages" />
@@ -25,8 +25,11 @@
 	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
 		<property name="validationMessageSource" ref="messageSource"/>
 	</bean>
-
+	-->
+	<!--
+	★☆★ Spring Bootの初期設定に含まれる為、不要 ★☆★
 	<mvc:resources mapping="/resources/**" location="/WEB-INF/resources"/>
+	 -->
 	<!-- ViewResolver Setting
 	★☆★ Spring Bootの場合、application.propertiesnに設定する。★☆★
 	spring.view.prefix= # MVC view prefix

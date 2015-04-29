@@ -2,6 +2,7 @@ package jp.co.skill.spider.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
@@ -20,10 +21,16 @@ public class MessageConfig extends WebMvcConfigurerAdapter {
 	   @Bean
 	    ReloadableResourceBundleMessageSource messageSource() {
 	        ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-	        messageSource.setBasenames("classpath:i18n/messages");	//（※２）
+	        messageSource.setBasenames("classpath:i18n/messages",
+	        		"classpath:i18n/validation_messages");	//（※２）
 	        messageSource.setCacheSeconds(0);
 	        messageSource.setDefaultEncoding("UTF-8");
 	        return messageSource;
+	    }
+
+	    @Bean
+	    public MessageSourceAccessor messageSourceAccessor() {
+	        return new MessageSourceAccessor(messageSource());
 	    }
 
 	    @Bean
