@@ -32,11 +32,19 @@ public class UserValidator implements Validator {
 		UserForm userForm = (UserForm) target;
 
 		//名前が未入力の場合
+		if(StringUtils.isEmpty(userForm.getsUserId()) ) {
+			/*
+			 * rejectValue({プロパティ名}, {エラーコード}, {メッセージ引数配列},{デフォルトメッセージ}])
+			 */
+			errors.rejectValue("sUserId", "error.com.required", new String[] {"ユーザID"}, "エラーメッセージが見つかりません。");
+		}
+
+		//名前が未入力の場合
 		if(StringUtils.isEmpty(userForm.getName()) ) {
 			/*
 			 * rejectValue({プロパティ名}, {エラーコード}, {メッセージ引数配列},{デフォルトメッセージ}])
 			 */
-			errors.rejectValue("name", "error.com.required2","arere");
+			errors.rejectValue("name", "error.com.required",new String[] {"名前"}, "エラーメッセージが見つかりません。");
 		}
 
 	}

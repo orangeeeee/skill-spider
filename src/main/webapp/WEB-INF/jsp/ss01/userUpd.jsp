@@ -15,11 +15,13 @@
 <input type="hidden" id="contextPath" value="${pageContext.servletContext.contextPath}" />
 <input type="button" name="_event_processd" onclick="submitPrc('ss01\/userSchList')" value="一覧へ戻る">
 <br/>
+<c:out value="${ message}" />
 <table class="info-table">
 	<tr>
 		<th align="left">ユーザID</th>
 		<td>
 			<c:out value="${userForm.sUserId}" />
+			<form:hidden path="sUserId"/>
 		</td>
 	</tr>
 	<tr>

@@ -15,6 +15,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -35,6 +37,22 @@ public class UserUpdController {
 	@Autowired
 	private UserService userService;
 
+	/**
+	 * initBinder
+	 * @param binder
+	 */
+	@InitBinder("userForm")
+	private void initBinder(WebDataBinder binder) {
+		binder.setValidator(userValidator);
+	}
+
+	/**
+	 * 更新入力画面表示処理
+	 * @param userForm
+	 * @param session
+	 * @param model
+	 * @return ModelAndView
+	 */
 	@RequestMapping(value = "/ss01/update", method = RequestMethod.POST)
 	public ModelAndView update(@ModelAttribute UserForm userForm,
 			HttpSession session, ModelMap model) {
@@ -68,8 +86,6 @@ public class UserUpdController {
 		return modelAndView;
 	}
 
-
-
 	/**
 	 * 確認画面表示<br>
 	 * <p>
@@ -100,11 +116,9 @@ public class UserUpdController {
 		// Validation Errorがある場合
 		if (result.hasErrors()) {
 
-			String message = "Please fil requered field.";
 			//エラーの場合、Formの値を表示。
 			//TODO 直接設定するの良くないんでしたっけ？
 			modelAndView.addObject(ATTR_FROM_KEY, userForm);
-			modelAndView.addObject("message", message);
 			modelAndView.setViewName("ss01/userUpd");
 			return modelAndView;
 		}

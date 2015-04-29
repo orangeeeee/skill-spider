@@ -197,10 +197,11 @@ public class UserRegController {
 
 			userService.register(sUserForm);
 
-		}catch (BussinessException be) {
+		}catch (BussinessException ex) {
 
-
+			modelAndView.addObject("message", ex.getMessage());
 			//TODO 前の画面に戻る。
+			modelAndView.setViewName("ss01/userRegConf");
 		}
 
 		//登録確認画面用のSessionを削除。

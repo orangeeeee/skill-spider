@@ -16,6 +16,7 @@
 <input type="hidden" id="contextPath" value="${pageContext.servletContext.contextPath}" />
 <input type="button" name="_event_processd" onclick="submitPrc('ss01\/userSchList')" value="一覧へ戻る">
 <br/>
+<c:out value="${ message}" />
 <table class="info-table">
 	<tr>
 		<th align="left">ユーザID</th>
@@ -40,9 +41,7 @@
 	<tr>
 		<th align="left">自己紹介</th>
 		<td>
-			<textarea rows="5" cols="30" readonly="readonly">
-				<c:out value="${sssionUserForm.introduceMyself}" />
-			</textarea>
+			<textarea rows="5" cols="30" readonly="readonly"><c:out value="${sssionUserForm.introduceMyself}" /></textarea>
 		</td>
 	</tr>
 </table>
