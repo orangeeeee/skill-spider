@@ -28,6 +28,15 @@ public interface SUserMapper {
 	 */
 	public int insert(SUser sUser);
 
+
+	/**
+	 * sUserId行ロック
+	 * バッチではないので待たない。
+	 * @return SUser
+	 */
+	@Select("SELECT * FROM S_USER WHERE s_user_id = #{sUserId} for update nowait")
+	public SUser selectIdForUpd(@Param("sUserId") String sUserId);
+
 	/**
 	 * ユーザTBLレコード更新処理
 	 * @param sUser

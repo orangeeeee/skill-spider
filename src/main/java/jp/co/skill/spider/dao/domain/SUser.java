@@ -1,7 +1,6 @@
 package jp.co.skill.spider.dao.domain;
 
 import java.sql.Timestamp;
-import java.util.Date;
 
 public class SUser {
 
@@ -78,7 +77,6 @@ public class SUser {
 	public void setUpdUserId(String updUserId) {
 		this.updUserId = updUserId;
 	}
-
 	public Timestamp getUpdTimestamp() {
 		return updTimestamp;
 	}

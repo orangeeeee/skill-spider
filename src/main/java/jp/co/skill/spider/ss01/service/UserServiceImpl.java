@@ -90,13 +90,22 @@ public class UserServiceImpl implements UserService {
 
 		try {
 
+			//取得するのは更新日だけでもいい。
+			SUser locRecod = sUserMapper.selectIdForUpd(s_user.getsUserId());
+
+			if(locRecod == null ||
+					!locRecod.getUpdTimestamp().equals(s_user.getUpdTimestamp())) {
+				//楽観ロックエラー
+			}
+
 			int insCnt = sUserMapper.update(s_user);
 
 			if(insCnt > 0) {
-				System.out.println("success insert");
+				System.out.println("success update");
 			}else {
-				System.out.println("failuer insert");
+				System.out.println("failuer update");
 			}
+
 		}catch(PessimisticLockingFailureException plfe) {
 
 			/*
