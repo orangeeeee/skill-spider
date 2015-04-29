@@ -20,7 +20,8 @@ Mapperの場所はどこでも良いが、javaファイルとセットで直す�
 				password=#{password},
 				name=#{name},
 				e_mail=#{eMail},
-				introduce_myself=#{introduceMyself}
+				introduce_myself=#{introduceMyself},
+				upd_timestamp=now()
 			</set>
 		WHERE s_user_id=#{sUserId}
 	</update>

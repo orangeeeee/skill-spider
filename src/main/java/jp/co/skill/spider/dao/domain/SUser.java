@@ -1,5 +1,8 @@
 package jp.co.skill.spider.dao.domain;
 
+import java.sql.Timestamp;
+import java.util.Date;
+
 public class SUser {
 
 	private String sUserId;
@@ -11,6 +14,21 @@ public class SUser {
 	private String eMail;
 
 	private String introduceMyself;
+
+	private String regUserId;
+
+	private Timestamp regTimestamp	;
+
+	private String updUserId;
+
+	/**
+	 * ■MyBatisレファレンス
+	 * Type Handler	Java Types	JDBC Types
+	 * SqlTimestampTypeHandler	java.sql.Timestamp	TIMESTAMP
+	 * DateTypeHandler	java.util.Date	TIMESTAMP
+	 * 一応Stringでも取れるけど、比較のときに・・・
+	 */
+	private Timestamp updTimestamp	;
 
 	public String getsUserId() {
 		return sUserId;
@@ -41,6 +59,31 @@ public class SUser {
 	}
 	public void setIntroduceMyself(String introduceMyself) {
 		this.introduceMyself = introduceMyself;
+	}
+	public String getRegUserId() {
+		return regUserId;
+	}
+	public void setRegUserId(String regUserId) {
+		this.regUserId = regUserId;
+	}
+	public Timestamp getRegTimestamp() {
+		return regTimestamp;
+	}
+	public void setRegTimestamp(Timestamp regTimestamp) {
+		this.regTimestamp = regTimestamp;
+	}
+	public String getUpdUserId() {
+		return updUserId;
+	}
+	public void setUpdUserId(String updUserId) {
+		this.updUserId = updUserId;
+	}
+
+	public Timestamp getUpdTimestamp() {
+		return updTimestamp;
+	}
+	public void setUpdTimestamp(Timestamp updTimestamp) {
+		this.updTimestamp = updTimestamp;
 	}
 	public SUser() {
 

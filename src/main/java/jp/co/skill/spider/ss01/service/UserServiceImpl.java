@@ -28,6 +28,11 @@ public class UserServiceImpl implements UserService {
 		SUser s_user = new SUser();
 		//sUserFormからs_userへプロパティーのコピー
 		BeanUtils.copyProperties(sUserForm, s_user);
+		/**
+		 * 通常ログインユーザをservletContxtから取得し設定する。
+		 */
+		s_user.setRegUserId("admin");
+		s_user.setUpdUserId("admin");
 
 		try {
 
@@ -80,6 +85,8 @@ public class UserServiceImpl implements UserService {
 		SUser s_user = new SUser();
 		//sUserFormからs_userへプロパティーのコピー
 		BeanUtils.copyProperties(sUserForm, s_user);
+		s_user.setRegUserId("admin");
+		s_user.setUpdUserId("admin");
 
 		try {
 

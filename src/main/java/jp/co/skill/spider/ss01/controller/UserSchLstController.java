@@ -81,7 +81,7 @@ public class UserSchLstController {
 	 * @return ModelAndView
 	 */
 	@RequestMapping(value = "/ss01/userSchList", method = RequestMethod.POST)
-	public ModelAndView initOnSearch(@ModelAttribute UserForm userForm,
+	public ModelAndView userSchList(@ModelAttribute UserForm userForm,
 			HttpSession session, ModelMap model) {
 
 		logger.debug("searchList starts");
