@@ -9,6 +9,7 @@ import jp.co.skill.spider.ss01.form.UserForm;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.PessimisticLockingFailureException;
 import org.springframework.stereotype.Service;
@@ -19,9 +20,9 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private SUserMapper sUserMapper;
 
-	/**
-	 *
-	 */
+	@Autowired
+	private MessageSourceAccessor messageSourceAccessor;
+
 	@Override
 	public void register(UserForm sUserForm) throws BussinessException {
 
@@ -38,13 +39,11 @@ public class UserServiceImpl implements UserService {
 
 			int insCnt = sUserMapper.insert(s_user);
 
-			if(insCnt > 0) {
-				System.out.println("success insert");
-			}else {
+			if(insCnt <= 0) {
 				System.out.println("failuer insert");
 			}
 
-		}catch(DuplicateKeyException plfe) {
+		}catch(final DuplicateKeyException ex) {
 
 			/**
 			 * DuplicateKeyException
@@ -67,6 +66,8 @@ public class UserServiceImpl implements UserService {
 		 *
 		 */
 		List<SUser> resultList = sUserMapper.selectList();
+
+		System.out.println( messageSourceAccessor.getMessage("message.test"));
 
 		return resultList;
 	}
@@ -106,7 +107,7 @@ public class UserServiceImpl implements UserService {
 				System.out.println("failuer update");
 			}
 
-		}catch(PessimisticLockingFailureException plfe) {
+		}catch(final PessimisticLockingFailureException ex) {
 
 			/*
 			 * PessimisticLockingFailureExceptionは<br/>

@@ -185,7 +185,7 @@ public class UserRegController {
 	 */
 	@RequestMapping(value = "/ss01/registerComp", method = RequestMethod.POST)
 	public ModelAndView registerComp(@ModelAttribute UserForm userForm,
-			HttpSession session, ModelMap model) {
+			HttpSession session, ModelMap model) throws Exception {
 
 		logger.debug("registerComp start");
 

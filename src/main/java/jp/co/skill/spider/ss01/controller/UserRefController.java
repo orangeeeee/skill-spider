@@ -41,13 +41,14 @@ public class UserRefController {
 		if(StringUtils.isEmpty(userForm.getsUserId())) {
 			//エラー処理
 			logger.debug("id is null");
+			throw new jp.co.skill.spider.exception.SystemException("");
 		}
 
 		SUser resultData = userService.getUserInfo(userForm.getsUserId());
 
 		//TODO データが取得できなかった場合のエラー処理
 		if(resultData == null) {
-
+			//データが削除された可能性がある旨のメッセージを出力する。
 		}
 
 		// success pattern
