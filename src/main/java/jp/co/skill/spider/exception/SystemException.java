@@ -1,5 +1,9 @@
 package jp.co.skill.spider.exception;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.MessageSourceAccessor;
+import org.springframework.stereotype.Component;
+
 /**
  * システム例外クラス<br/>
  * 常に起こるわけではないあり得ないケース。<br/>
@@ -8,13 +12,26 @@ package jp.co.skill.spider.exception;
  * @author yuuichi
  *
  */
+@Component
 public class SystemException extends RuntimeException {
+
+	private static MessageSourceAccessor messageSourceAccessor;
 
 	public SystemException() {
 		super();
 	}
 
-	public SystemException(String message) {
-		super(message);
+	/**
+	 * メッセージあり
+	 * @param message_key messages_ja.propertiesのキー
+	 */
+	public SystemException(String message_key) {
+
+		super(messageSourceAccessor.getMessage(message_key));
+	}
+
+	@Autowired
+	public void setMessageSourceAccessor(MessageSourceAccessor messageSourceAccessor) {
+		SystemException.messageSourceAccessor = messageSourceAccessor;
 	}
 }
