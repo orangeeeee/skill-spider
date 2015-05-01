@@ -5,6 +5,7 @@ import java.util.List;
 import jp.co.skill.spider.dao.SUserMapper;
 import jp.co.skill.spider.dao.domain.SUser;
 import jp.co.skill.spider.exception.BussinessException;
+import jp.co.skill.spider.exception.SystemException;
 import jp.co.skill.spider.ss01.form.UserForm;
 
 import org.springframework.beans.BeanUtils;
@@ -40,7 +41,7 @@ public class UserServiceImpl implements UserService {
 			int insCnt = sUserMapper.insert(s_user);
 
 			if(insCnt <= 0) {
-				System.out.println("failuer insert");
+				throw new SystemException("sys.error.transaction", new String[] {"登録"});
 			}
 
 		}catch(final DuplicateKeyException ex) {
@@ -50,7 +51,7 @@ public class UserServiceImpl implements UserService {
 			 * 一意制約違反が発生した場合に発生する例外。
 			 * 今回のようにsequenceを使用していない場合に使う。
 			 */
-			throw new BussinessException("");
+			throw new BussinessException("bs.error.dulicateKey", new String[] {"ユーザID"});
 		}
 	}
 
@@ -67,7 +68,6 @@ public class UserServiceImpl implements UserService {
 		 */
 		List<SUser> resultList = sUserMapper.selectList();
 
-		System.out.println( messageSourceAccessor.getMessage("message.test"));
 
 		return resultList;
 	}
@@ -81,7 +81,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void update(UserForm sUserForm) {
+	public void update(UserForm sUserForm) throws BussinessException {
 
 		SUser s_user = new SUser();
 		//sUserFormからs_userへプロパティーのコピー
@@ -97,14 +97,13 @@ public class UserServiceImpl implements UserService {
 			if(locRecod == null ||
 					!locRecod.getUpdTimestamp().equals(s_user.getUpdTimestamp())) {
 				//楽観ロックエラー
+				throw new BussinessException("bs.error.rock");
 			}
 
-			int insCnt = sUserMapper.update(s_user);
+			int updCnt = sUserMapper.update(s_user);
 
-			if(insCnt > 0) {
-				System.out.println("success update");
-			}else {
-				System.out.println("failuer update");
+			if(updCnt <= 0) {
+				throw new SystemException("sys.error.transaction", new String[] {"更新"});
 			}
 
 		}catch(final PessimisticLockingFailureException ex) {
@@ -116,7 +115,7 @@ public class UserServiceImpl implements UserService {
 			 * ロック解放待ちのタイムアウト時間を<br/>
 			 * 超えてもロックが解放されない場合に発生する。<br/>
 			 */
-
+			throw new BussinessException("bs.error.rock");
 		}
 
 	}

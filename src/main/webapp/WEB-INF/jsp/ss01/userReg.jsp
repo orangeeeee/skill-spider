@@ -7,6 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/view/css/ss01/ss01-common.css">
+<script type="text/javascript" src="${pageContext.request.contextPath}/view/js/lib/jquery-2.1.3.min.js"></script>
 <title>ユーザ情報登録画面</title>
 </head>
 <body>
@@ -60,6 +61,8 @@
 		</td>
 	</tr>
 </table>
+ <div id="dragArea">ファイルをここにドラッグ</div>
+    <div id="result"></div>
 <br/>
 <input type="button" name="_event_processd" onclick="submitPrc('ss01\/registerConf')" value="確認">
 </form:form>

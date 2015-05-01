@@ -4,6 +4,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import jp.co.skill.spider.dao.domain.SUser;
+import jp.co.skill.spider.exception.BussinessException;
 import jp.co.skill.spider.ss01.form.UserForm;
 import jp.co.skill.spider.ss01.service.UserService;
 import jp.co.skill.spider.ss01.validation.UserValidator;
@@ -187,8 +188,14 @@ public class UserUpdController {
 
 		UserForm sUserForm = (UserForm)session.getAttribute(SESSION_FROM_KEY);
 
-		userService.update(sUserForm);
+		try{
+			userService.update(sUserForm);
+		}catch (BussinessException ex) {
 
+			modelAndView.addObject("message", ex.getMessage());
+			//TODO 前の画面に戻る。
+			modelAndView.setViewName("ss01/userUpdConf");
+		}
 		//登録確認画面用のSessionを削除。
 		session.setAttribute(SESSION_FROM_KEY, null);
 

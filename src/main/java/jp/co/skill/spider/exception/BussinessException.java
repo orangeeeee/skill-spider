@@ -23,6 +23,15 @@ public class BussinessException extends Exception {
 	}
 
 	/**
+	 * メッセージ＋バインドあり
+	 * @param message_key messages_ja.propertiesのキー
+	 */
+	public BussinessException(String message_key, Object[] bindStrings) {
+
+		super(messageSourceAccessor.getMessage(message_key, bindStrings));
+	}
+
+	/**
 	 * static DI
 	 * １．setterを作成し、自クラスのMessageSourceAccessorに設定すること。
 	 * ２．クラスに@Componentを付ける。

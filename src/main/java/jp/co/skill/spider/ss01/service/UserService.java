@@ -16,7 +16,7 @@ public interface UserService {
 	/**
 	 * 更新処理
 	 */
-	public void update(UserForm sUserForm);
+	public void update(UserForm sUserForm) throws BussinessException;
 
 	/**
 	 * 検索処理

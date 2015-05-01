@@ -30,6 +30,15 @@ public class SystemException extends RuntimeException {
 		super(messageSourceAccessor.getMessage(message_key));
 	}
 
+	/**
+	 * メッセージ＋バインドあり
+	 * @param message_key messages_ja.propertiesのキー
+	 */
+	public SystemException(String message_key, Object[] bindStrings) {
+
+		super(messageSourceAccessor.getMessage(message_key, bindStrings));
+	}
+
 	@Autowired
 	public void setMessageSourceAccessor(MessageSourceAccessor messageSourceAccessor) {
 		SystemException.messageSourceAccessor = messageSourceAccessor;
