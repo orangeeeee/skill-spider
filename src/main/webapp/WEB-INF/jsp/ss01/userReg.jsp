@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"  pageEncoding="utf-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
@@ -8,11 +8,13 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/view/css/ss01/ss01-common.css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/view/js/lib/jquery-2.1.3.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/view/js/ss01/userReg.js"></script>
 <title>ユーザ情報登録画面</title>
 </head>
 <body>
 <h1>ユーザ情報登録画面</h1>
 <form:form id="oForm" modelAttribute="userForm" method="post">
+ <div id="dragArea" draggable="true">
 <input type="hidden" id="contextPath" value="${pageContext.servletContext.contextPath}" />
 <input type="button" name="_event_processd" onclick="submitPrc('ss01\/userSchList')" value="一覧へ戻る">
 <br/>
@@ -61,19 +63,15 @@
 		</td>
 	</tr>
 </table>
- <div id="dragArea">ファイルをここにドラッグ</div>
+プロフィール画像の追加<br>
+<input id="form" type="file" multiple="multiple" />
     <div id="result"></div>
 <br/>
+</div>
 <input type="button" name="_event_processd" onclick="submitPrc('ss01\/registerConf')" value="確認">
 </form:form>
 <script type="text/javascript">
-function submitPrc(btnName) {
-	var contextPath = document.getElementById('contextPath').value;
-	var oForm = document.getElementById('oForm');
-	oForm.method = "post";
-	oForm.action = contextPath + "/" + btnName;
-	oForm.submit();
-}
+
 </script>
 </body>
 </html>
