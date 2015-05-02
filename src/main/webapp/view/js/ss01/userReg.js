@@ -72,15 +72,24 @@ $(function() {
 			function(event) {
 
 				$(this).removeClass('fileover');
+				//input type="file"を入れ替える。
+				$("#profUpdBtn").replaceWith('<input id="profUpdBtn" type="file" multiple="multiple" />');
 
 				event.preventDefault();
 				var dt = event.dataTransfer;
 				// メッセージエリアのメッセージをクリア
 				result = $('#result');
 				result.html('');
+
+				//TODO 今回は１ファイルのみ対応にする。
+		        if(dt.files.length > 1) {
+		        	alert("１ファイルのみ指定してください。");
+		        	return false;
+		        }
+
 				// / ドロップされたファイルを順次送信
 				for (var i = 0; i < dt.files.length; i++) {
-					upload(dt.files[i], i);
+					uploadFiles(dt.files[i], i);
 				}
 
 			}, false);
@@ -88,7 +97,7 @@ $(function() {
 	/*
 	 * ファイルアップロード 複数対応のサンプルで書いておく。
 	 */
-	function upload(file, num) {
+	function uploadFiles(file, num) {
 
 		var f_id = 'filename_' + num;
 		var p_id = 'progress_' + num;
@@ -128,7 +137,26 @@ $(function() {
 				document.getElementById(f_id).innerHTML ="<br>" + file.name + ":" + msg
 			}
 		});
-	}
-	;
+	};
+    // ファイル選択フォームからの入力
+    $("#profUpdBtn").bind("change", function () {
 
+        // 選択されたファイル情報を取得
+        var files = this.files;
+
+        //TODO 今回は１ファイルのみ対応にする。
+        if(files.length > 1) {
+        	alert("１ファイルのみ指定してください。");
+        	return false;
+        }
+
+        if(document.getElementById("filename_0") != null) {
+        	$("#filename_0").parent("div").remove();
+        }
+
+		// ドロップされたファイルを順次送信
+		for (var i = 0; i < files.length; i++) {
+			uploadFiles(files[i], i);
+		}
+    });
 });

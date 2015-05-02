@@ -14,11 +14,12 @@
 <body>
 <h1>ユーザ情報登録画面</h1>
 <form:form id="oForm" modelAttribute="userForm" method="post">
- <div id="dragArea" draggable="true">
+<div id="dragArea" draggable="true">
 <input type="hidden" id="contextPath" value="${pageContext.servletContext.contextPath}" />
 <input type="button" name="_event_processd" onclick="submitPrc('ss01\/userSchList')" value="一覧へ戻る">
 <br/>
 <c:out value="${ message}" />
+<%--もうすべてDivでいい --%>
 <table class="info-table">
 	<tr>
 		<th align="left">ユーザID</th>
@@ -63,11 +64,15 @@
 		</td>
 	</tr>
 </table>
-プロフィール画像の追加<br>
-<input id="form" type="file" multiple="multiple" />
-    <div id="result"></div>
-<br/>
+<br>
+<div>
+	<label class="th-label">プロフィール画像アップロード</label>（ファイルドロップ可）
+	<br>
+	<input id="profUpdBtn" type="file" multiple="multiple" />
+	<div id="result"></div>
 </div>
+<br/>
+</div><%-- dragArea end --%>
 <input type="button" name="_event_processd" onclick="submitPrc('ss01\/registerConf')" value="確認">
 </form:form>
 <script type="text/javascript">

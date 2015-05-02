@@ -114,8 +114,8 @@ public class UserRegController {
 	 * @return ModelAndView
 	 */
 	@RequestMapping(value = "/ss01/registerConf", method = RequestMethod.POST)
-	public ModelAndView registerConf(@Valid @ModelAttribute UserForm userForm, HttpSession session,
-			BindingResult result, ModelMap model) {
+	public ModelAndView registerConf(@Valid @ModelAttribute UserForm userForm,
+			BindingResult result, HttpSession session, ModelMap model) {
 
 		logger.debug("registerConf start");
 

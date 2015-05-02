@@ -2,27 +2,38 @@
 	table-layout: fixed;
 	margin-top: 15px;
 	color: #666;
-	border: 2px solid #666;
-	border-collapse: separate;
-	border-spacing: 1px;
+	border: 0px solid #666;
+/* 	border-collapse: separate; */
+	border-collapse: collapse;
+	border-spacing: 0px;
+}
+
+.info-table tr {
+
+	border-bottom: 1px solid #666;
 }
 
 .info-table th {
 	text-align: left;
 	color: #444;
 	padding: 5px;
-	border-right: 1px solid #ccc;
+	border-top: 1px solid #666;
 	border-bottom: 1px solid #666;
-	background-color: #7EBFFF;
 }
 
 .info-table td {
-	padding: 0px 0px;
-	border-right: 1px solid #ccc;
-	border-bottom: 1px solid #ccc;
+
+	padding: 5px;
+	border: 0px;
 	background-color: #fff;
+	border-top: 1px solid #666;
+	border-bottom: 1px solid #666;
 }
 
 div.fileover {
 	background-color: lavender;
+}
+
+.th-label {
+	font-weight: bold;
 }
