@@ -95,7 +95,8 @@ $(function() {
 			}, false);
 
 	/*
-	 * ファイルアップロード 複数対応のサンプルで書いておく。
+	 * ファイルアップロード
+	 * ※複数対応のサンプルで書いておく。※
 	 */
 	function uploadFiles(file, num) {
 
@@ -110,8 +111,11 @@ $(function() {
 		var fd = new FormData();
 		fd.append("file", file, file.name);
 
+		var contextPath = document.getElementById('contextPath').value;
+		var action_uri = contextPath + '/ss01\/upload';
+
 		// ajaxを使用してアップロード
-		$.ajax(contextPath + '/upload', {
+		$.ajax(action_uri, {
 			xhr : function() {
 				XHR = $.ajaxSettings.xhr();
 				if (XHR.upload) {
