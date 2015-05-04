@@ -1,6 +1,5 @@
 package jp.co.skill.spider.ss01.controller;
 
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Iterator;
@@ -90,7 +89,7 @@ public class ProfFileUploadController {
                 		"/temp/files/"
                 		+ mpf.getOriginalFilename()));
                 //TODO これどうかな
-                mpf.transferTo(new File(""));
+//                mpf.transferTo(new File(""));
 
            } catch (IOException e) {
                // TODO Auto-generated catch block

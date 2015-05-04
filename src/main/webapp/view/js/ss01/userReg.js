@@ -114,6 +114,40 @@ $(function() {
 		var contextPath = document.getElementById('contextPath').value;
 		var action_uri = contextPath + '/ss01\/upload';
 
+		/*
+		 * jQuery ajax参考サイト
+		 * http://js.studio-kingdom.com/jquery/ajax/ajax
+		 */
+		$.ajax({
+			xhr : function() {
+				XHR = $.ajaxSettings.xhr();
+				if (XHR.upload) {
+					XHR.upload.addEventListener('progress', function(e) {
+						progre = parseInt(e.loaded / e.total * 10000) / 100;
+						console.log(progre + "%");
+						document.getElementById(p_id).value = progre;
+						document.getElementById(p_id).innerHTML = progre + '%';
+					}, false);
+				}
+				return XHR;
+			},
+			url:action_uri,
+			method : 'POST',
+			data : fd,
+			dataType : 'json',
+			processData: false,
+			contentType: false
+			}).done(function( data ) {
+		        // ...
+			})
+			.fail(function( data ) {
+			        // ...
+			})
+			.always(function( data ) {
+			        // ...
+			});
+
+/* 旧バージョンの記載方法
 		// ajaxを使用してアップロード
 		$.ajax(action_uri, {
 			xhr : function() {
@@ -142,6 +176,8 @@ $(function() {
 			}
 
 		});
+
+		*/
 	};
     // ファイル選択フォームからの入力
     $("#profUpdBtn").bind("change", function () {
@@ -164,4 +200,14 @@ $(function() {
 			uploadFiles(files[i], i);
 		}
     });
+
+
+
+    /*
+	 *
+	 * processData 型：Boolean 初期値：true
+	 * デフォルトでは、dataオプションにオブジェクトとして渡されるデータ(厳密に言えば、文字列以外のもの)は、
+	 * デフォルトのcontent-typeである"application/x-www-form-urlencoded"に合わせた形式でクエリー文字列へ変換されます。
+	 * もしDOMDocument、またはその他の形式のデータを送信したい場合は、このオプションをfalseに設定します。
+	 */
 });
