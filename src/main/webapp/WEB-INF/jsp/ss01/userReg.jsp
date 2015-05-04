@@ -7,6 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/view/css/ss01/ss01-common.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/view/css/common.css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/view/js/lib/jquery-2.1.3.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/view/js/ss01/userReg.js"></script>
 <title>ユーザ情報登録画面</title>
@@ -20,6 +21,8 @@
 <br/>
 <c:out value="${ message}" />
 <%--もうすべてDivでいい --%>
+<progress value="50" max="100"><span>50</span>%</progress>
+<progress id="ex1" class="example3" max="100" value="100"><strong>Progress: 60%</strong></progress>
 <table class="info-table">
 	<tr>
 		<th align="left">ユーザID</th>

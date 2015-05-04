@@ -103,9 +103,11 @@ $(function() {
 		var f_id = 'filename_' + num;
 		var p_id = 'progress_' + num;
 		$('#result').append(
-				'<div><span id="' + f_id + '">' + file.name
-						+ '</span><progress id="' + p_id
-						+ '" value="0" max="100">0%</progress></div>');
+				'<div>'
+					+ '<span id="' + f_id + '">' + file.name + '</span>'
+					+ '<progress id="' + p_id
+						+ '" class="" value="0" max="100">0%</progress>'
+				+ '</div>');
 
 		// データを送信用する
 		var fd = new FormData();
@@ -137,15 +139,34 @@ $(function() {
 			dataType : 'json',
 			processData: false,
 			contentType: false
-			}).done(function( data ) {
-		        // ...
-			})
-			.fail(function( data ) {
-			        // ...
-			})
-			.always(function( data ) {
-			        // ...
-			});
+		}).done(function( data ) {
+			// 成功時
+		}).fail(function( data ) {
+			// 失敗時.
+		}).always(function( data ) {
+			// 常に（finalyと同様）
+		});
+		// ファイル選択フォームからの入力
+		$("#profUpdBtn").bind("change", function () {
+
+			// 選択されたファイル情報を取得
+			var files = this.files;
+
+			//TODO 今回は１ファイルのみ対応にする。
+			if(files.length > 1) {
+				alert("１ファイルのみ指定してください。");
+				return false;
+			}
+
+			if(document.getElementById("filename_0") != null) {
+				$("#filename_0").parent("div").remove();
+			}
+
+			// ドロップされたファイルを順次送信
+			for (var i = 0; i < files.length; i++) {
+				uploadFiles(files[i], i);
+			}
+		});
 
 /* 旧バージョンの記載方法
 		// ajaxを使用してアップロード
@@ -179,29 +200,6 @@ $(function() {
 
 		*/
 	};
-    // ファイル選択フォームからの入力
-    $("#profUpdBtn").bind("change", function () {
-
-        // 選択されたファイル情報を取得
-        var files = this.files;
-
-        //TODO 今回は１ファイルのみ対応にする。
-        if(files.length > 1) {
-        	alert("１ファイルのみ指定してください。");
-        	return false;
-        }
-
-        if(document.getElementById("filename_0") != null) {
-        	$("#filename_0").parent("div").remove();
-        }
-
-		// ドロップされたファイルを順次送信
-		for (var i = 0; i < files.length; i++) {
-			uploadFiles(files[i], i);
-		}
-    });
-
-
 
     /*
 	 *
