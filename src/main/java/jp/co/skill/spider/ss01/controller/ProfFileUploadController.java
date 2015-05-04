@@ -1,5 +1,6 @@
 package jp.co.skill.spider.ss01.controller;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Iterator;
@@ -61,6 +62,7 @@ public class ProfFileUploadController {
 //            mpf = request.getFile(itr.next());
             System.out.println(mpf.getOriginalFilename() +" uploaded! "+files.size());
 
+
             //2.2 if files > 10 remove the first from the list
             if(files.size() >= 10)
                 files.pop();
@@ -72,14 +74,28 @@ public class ProfFileUploadController {
             fileMeta.setFileType(mpf.getContentType());
 
             try {
+
+            	//ディレクトリがない場合に作る。
+
                fileMeta.setBytes(mpf.getBytes());
 
+               /*cleanすると消えるのであまり良くない方法だと思うが調べたのでメモに残す。
+               	以下、デプロイ先にファイルを作成する方法
+               	logger.debug("一時ファイル出力先:" + request.getServletContext().getRealPath("/temp/files/"));
+               	String copyPath = request.getServletContext().getRealPath("/skill-spider/temp/files/");
+                */
                 // copy file to local disk (make sure the path "e.g. D:/temp/files" exists)
-                FileCopyUtils.copy(mpf.getBytes(), new FileOutputStream("c:/temp/files/"+mpf.getOriginalFilename()));
+                FileCopyUtils.copy(mpf.getBytes(), new FileOutputStream(
+                		//copyPath + System.getProperty("file.separator")
+                		"/temp/files/"
+                		+ mpf.getOriginalFilename()));
+                //TODO これどうかな
+                mpf.transferTo(new File(""));
 
            } catch (IOException e) {
                // TODO Auto-generated catch block
                e.printStackTrace();
+               return null;
            }
             //2.4 add to files
             files.add(fileMeta);

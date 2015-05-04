@@ -66,6 +66,8 @@
 </table>
 <br>
 <div>
+<%-- 	<img alt="" src="${pageContext.request.contextPath}/temp/files/screenshot-1.jpg" > --%>
+	<img alt="" src="file:/temp/files/screenshot-1.jpg" >
 	<label class="th-label">プロフィール画像アップロード</label>（ファイルドロップ可）
 	<br>
 	<input id="profUpdBtn" type="file" multiple="multiple" />

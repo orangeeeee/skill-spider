@@ -13,6 +13,7 @@ public class FileMeta {
 	private String fileName;
     private String fileSize;
     private String fileType;
+    private String filePath;
 
     private byte[] bytes;
 
@@ -47,4 +48,13 @@ public class FileMeta {
 	public void setBytes(byte[] bytes) {
 		this.bytes = bytes;
 	}
+
+	public String getFilePath() {
+		return filePath;
+	}
+
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
+	}
+
 }

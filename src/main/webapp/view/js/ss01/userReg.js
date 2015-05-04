@@ -140,6 +140,7 @@ $(function() {
 				}
 				document.getElementById(f_id).innerHTML ="<br>" + file.name + ":" + msg
 			}
+
 		});
 	};
     // ファイル選択フォームからの入力
