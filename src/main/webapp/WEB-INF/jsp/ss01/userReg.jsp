@@ -21,8 +21,7 @@
 <br/>
 <c:out value="${ message}" />
 <%--もうすべてDivでいい --%>
-<progress value="50" max="100"><span>50</span>%</progress>
-<progress id="ex1" class="example3" max="100" value="100"><strong>Progress: 60%</strong></progress>
+<div >
 <table class="info-table">
 	<tr>
 		<th align="left">ユーザID</th>

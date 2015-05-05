@@ -102,9 +102,10 @@ $(function() {
 
 		var f_id = 'filename_' + num;
 		var p_id = 'progress_' + num;
+
 		$('#result').append(
 				'<div>'
-					+ '<span id="' + f_id + '">' + file.name + '</span>'
+					+ '<span class="upload-filename" id="' + f_id + '">' + file.name + '</span>'
 					+ '<progress id="' + p_id
 						+ '" class="" value="0" max="100">0%</progress>'
 				+ '</div>');

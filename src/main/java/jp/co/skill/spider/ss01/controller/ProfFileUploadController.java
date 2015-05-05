@@ -1,5 +1,6 @@
 package jp.co.skill.spider.ss01.controller;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Iterator;
@@ -74,7 +75,16 @@ public class ProfFileUploadController {
 
             try {
 
+            	/**
+            	 * linux、windows注意点
+            	 * http://qiita.com/asadasan/items/e541abb6024996488580
+            	 */
+
             	//ディレクトリがない場合に作る。
+            	this.createTempDir();
+
+
+
 
                fileMeta.setBytes(mpf.getBytes());
 
@@ -100,6 +110,31 @@ public class ProfFileUploadController {
             files.add(fileMeta);
         }
 		return files;
+	}
+
+	/**
+	 * 一時保存ディレクトリを作成する。
+	 */
+	private void createTempDir() {
+
+		logger.debug("upload.createTempDir str");
+
+		final String FS = File.separator;
+		//windowsの場合、"/"始まりは、"c:\"に作られる。
+		File f = new File(FS+"temp"+FS+"files"); //　変数に入れたセパレータで区切
+
+		//ディレクトリが無ければ作らない。
+		boolean rst = f.mkdirs(); //ディレクトリ作成(既にディレクトリがあればfalse)
+		System.out.println("結果："+rst);
+
+		if(rst) {
+			logger.debug("新規でディレクトリを作成した。");
+		}
+
+		String[] list = f.list();//指定ディレクトリ内のファイル名のリストを取得する
+
+		logger.debug("upload.createTempDir end");
+
 	}
 
 }

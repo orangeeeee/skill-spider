@@ -1,4 +1,4 @@
-p div {
+p div progress {
 	display: block;
 }
 /* プログレスバー style */
@@ -16,6 +16,10 @@ p div {
 https://css-tricks.com/html5-progress-element/
 http://www.htmlgoodies.com/html5/javascript/adding-patterns-and-animations-to-html5-progress-bars.html#fbid=FU_lbd4TQPg
 */
+.upload-filename {
+	font-size: 11px;
+}
+
 
 progress {
   width: 180px;
