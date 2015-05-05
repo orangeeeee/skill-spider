@@ -141,7 +141,13 @@ $(function() {
 			processData: false,
 			contentType: false
 		}).done(function( data ) {
-			// 成功時
+
+			// Responseあり
+			if (data.uploadResult == false) {
+				document.getElementById(f_id).innerHTML = file.name + "：" + "失敗";
+			}else {
+				document.getElementById(f_id).innerHTML = file.name + "：" + data.fileSize + "：" + "成功" ;
+			}
 		}).fail(function( data ) {
 			// 失敗時.
 		}).always(function( data ) {

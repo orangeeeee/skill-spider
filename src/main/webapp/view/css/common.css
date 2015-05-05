@@ -48,9 +48,11 @@ progress::-webkit-progress-value {
         background:
                 -webkit-linear-gradient(45deg, transparent, transparent 33%, rgba(0, 0, 0, 0.1) 33%, rgba(0, 0, 0, 0.1) 66%, transparent 66%),
                 -webkit-linear-gradient(top, rgba(255, 255, 255, 0.25), rgba(0, 0, 0, 0.2)),
-                 /* ”Z®Ë”Z…F */
+                 /* ”Z®Ë”Z…F*/
                 -webkit-linear-gradient(left, #000099, #3399FF);
-
+                /* Â—Î
+				-webkit-linear-gradient(left, #247996, #33ADD6);
+				*/
         background-size: 25px 14px, 100% 100%, 100% 100%;
 
 

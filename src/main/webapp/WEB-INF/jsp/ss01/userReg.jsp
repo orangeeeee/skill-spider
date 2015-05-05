@@ -76,6 +76,7 @@
 	<div id="result"></div>
 </div>
 <br/>
+</div>
 </div><%-- dragArea end --%>
 <input type="button" name="_event_processd" onclick="submitPrc('ss01\/registerConf')" value="確認">
 </form:form>

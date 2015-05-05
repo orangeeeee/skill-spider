@@ -14,6 +14,7 @@ public class FileMeta {
     private String fileSize;
     private String fileType;
     private String filePath;
+    private boolean uploadResult = true;
 
     private byte[] bytes;
 
@@ -57,4 +58,11 @@ public class FileMeta {
 		this.filePath = filePath;
 	}
 
+	public boolean isUploadResult() {
+		return uploadResult;
+	}
+
+	public void setUploadResult(boolean uploadResult) {
+		this.uploadResult = uploadResult;
+	}
 }

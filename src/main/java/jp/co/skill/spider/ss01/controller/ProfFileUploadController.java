@@ -29,12 +29,18 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 @Controller
 public class ProfFileUploadController {
 
+	//複数アップロードしたときに、アップロード分記憶できる。
 	LinkedList<FileMeta> files = new LinkedList<FileMeta>();
+
 	FileMeta fileMeta = null;
+
+	final String FS = File.separator;
 
 	private static final Logger logger = Logger.getLogger(ProfFileUploadController.class);
 
+
 	/**
+	 * ☆★☆ 複数アップロードサンプル ☆★☆
 	 * プロフィールの画像をアップロードする。
 	 * http://hmkcode.com/spring-mvc-jquery-file-upload-multiple-dragdrop-progress/
 	 * @param request
@@ -42,7 +48,93 @@ public class ProfFileUploadController {
 	 * @return ファイル情報？
 	 */
 	@RequestMapping(value = "/ss01/upload", method = RequestMethod.POST)
-	public @ResponseBody LinkedList<FileMeta> upload(
+	public @ResponseBody FileMeta upload(
+			MultipartHttpServletRequest request, HttpServletResponse response) {
+
+		logger.debug("upload");
+		// ここではtemp領域に維持するだけ。
+		// 完了画面でサーバーに格納する。
+
+		// 1. get the files from the request object
+		Iterator<String> itr = request.getFileNames();
+
+		FileMeta fileMeta = new FileMeta();
+
+		 //2. get each file
+        if(itr.hasNext()){
+
+        	MultipartFile mpf = request.getFile(itr.next());
+
+            //2.2 if files > 10 remove the first from the list
+            if(files.size() >= 10)
+                files.pop();
+
+            //2.3 create new fileMeta
+            fileMeta.setFileName(mpf.getOriginalFilename());
+            fileMeta.setFileSize(mpf.getSize()/1024+" Kb");
+            fileMeta.setFileType(mpf.getContentType());
+
+            try {
+
+            	/**
+            	 * linux、windows注意点
+            	 * http://qiita.com/asadasan/items/e541abb6024996488580
+            	 */
+            	//ディレクトリがない場合に作る。
+            	this.createTempDir();
+
+               fileMeta.setBytes(mpf.getBytes());
+
+                // copy file to local disk
+                FileCopyUtils.copy(mpf.getBytes(), new FileOutputStream(
+                		//copyPath + System.getProperty("file.separator")
+                		"/temp/files/"
+                		+ mpf.getOriginalFilename()));
+
+
+           } catch (IOException e) {
+
+        	   fileMeta.setUploadResult(false);
+           }
+            //2.4 add to files
+            files.add(fileMeta);
+        }
+
+		return fileMeta;
+	}
+	/**
+	 * 一時保存ディレクトリを作成する。
+	 * 本来は重ならないIDをつけるとよい。<br>
+	 * それをクライアントに返して、Formで持つ方法がいい。<br>
+	 */
+	private void createTempDir() {
+
+		logger.debug("upload.createTempDir str");
+
+		//windowsの場合、"/"始まりは、"c:\"に作られる。
+		File f = new File(FS+"temp"+FS+"files");
+
+		//ディレクトリが無ければ作らない。
+		boolean rst = f.mkdirs(); //ディレクトリ作成(既にディレクトリがあればfalse)
+
+		if(rst) {
+			logger.debug("新規でディレクトリを作成した。");
+		}
+
+		logger.debug("upload.createTempDir end");
+
+	}
+
+	/**
+	 * ☆★☆ 複数アップロードサンプル ☆★☆
+	 * プロフィールの画像をアップロードする。
+	 * http://hmkcode.com/spring-mvc-jquery-file-upload-multiple-dragdrop-progress/
+	 * @param request
+	 * @param response
+	 * @return ファイル情報？
+	 */
+	@RequestMapping(value = "/ss01/uploads", method = RequestMethod.POST)
+	public @ResponseBody LinkedList<FileMeta> uploads(
 			MultipartHttpServletRequest request, HttpServletResponse response) {
 
 		logger.debug("upload");
@@ -79,27 +171,17 @@ public class ProfFileUploadController {
             	 * linux、windows注意点
             	 * http://qiita.com/asadasan/items/e541abb6024996488580
             	 */
-
             	//ディレクトリがない場合に作る。
             	this.createTempDir();
 
-
-
-
                fileMeta.setBytes(mpf.getBytes());
 
-               /*cleanすると消えるのであまり良くない方法だと思うが調べたのでメモに残す。
-               	以下、デプロイ先にファイルを作成する方法
-               	logger.debug("一時ファイル出力先:" + request.getServletContext().getRealPath("/temp/files/"));
-               	String copyPath = request.getServletContext().getRealPath("/skill-spider/temp/files/");
-                */
-                // copy file to local disk (make sure the path "e.g. D:/temp/files" exists)
+                // copy file to local disk
                 FileCopyUtils.copy(mpf.getBytes(), new FileOutputStream(
                 		//copyPath + System.getProperty("file.separator")
                 		"/temp/files/"
                 		+ mpf.getOriginalFilename()));
-                //TODO これどうかな
-//                mpf.transferTo(new File(""));
+
 
            } catch (IOException e) {
                // TODO Auto-generated catch block
@@ -111,30 +193,4 @@ public class ProfFileUploadController {
         }
 		return files;
 	}
-
-	/**
-	 * 一時保存ディレクトリを作成する。
-	 */
-	private void createTempDir() {
-
-		logger.debug("upload.createTempDir str");
-
-		final String FS = File.separator;
-		//windowsの場合、"/"始まりは、"c:\"に作られる。
-		File f = new File(FS+"temp"+FS+"files"); //　変数に入れたセパレータで区切
-
-		//ディレクトリが無ければ作らない。
-		boolean rst = f.mkdirs(); //ディレクトリ作成(既にディレクトリがあればfalse)
-		System.out.println("結果："+rst);
-
-		if(rst) {
-			logger.debug("新規でディレクトリを作成した。");
-		}
-
-		String[] list = f.list();//指定ディレクトリ内のファイル名のリストを取得する
-
-		logger.debug("upload.createTempDir end");
-
-	}
-
 }
