@@ -1,10 +1,14 @@
 package jp.co.skill.spider.ss01.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import jp.co.skill.spider.dao.domain.SUser;
+import jp.co.skill.spider.exception.SystemException;
 import jp.co.skill.spider.ss01.form.UserForm;
 import jp.co.skill.spider.ss01.form.UserSrchLstForm;
 import jp.co.skill.spider.ss01.service.UserService;
@@ -13,6 +17,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.MimeTypeUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -30,6 +35,8 @@ import org.springframework.web.servlet.ModelAndView;
 public class UserSchLstController {
 
 	private static final String ATTR_FROM_KEY = "userSrchLstForm";
+
+	private static final String ATTR_S_FROM_KEY = "sessionUserSrchLstForm";
 
 	private static final Logger logger = Logger.getLogger(UserSchLstController.class);
 
@@ -70,6 +77,7 @@ public class UserSchLstController {
 
 		//検索結果を格納
 		userSrchLstForm.setUserList(resuUserltList);
+		session.setAttribute(ATTR_S_FROM_KEY, resuUserltList);
 
 		logger.debug("search end");
 
@@ -97,5 +105,63 @@ public class UserSchLstController {
 		logger.debug("searchList end");
 
 		return new ModelAndView("ss01/userSearchList", ATTR_FROM_KEY, userSrchLstForm);
+	}
+
+	/**
+	 * CSVダウンロード
+	 *
+	 * ☆★☆ ダウンロード時の注意点 ☆★☆<br>
+	 * Excelで開きたい場合はUTF-8は文字化けします。
+	 * MS932等を仕様する必要があります。<br>
+	 * @return ModelAndView
+	 */
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/ss01/csvDownload",
+		method = RequestMethod.POST, produces = MimeTypeUtils.APPLICATION_OCTET_STREAM_VALUE + ";charset=utf-8")
+	public void csvDownload(@ModelAttribute UserForm userForm,
+			HttpSession session, HttpServletResponse response, ModelMap model) {
+
+		logger.debug("csvDownload starts");
+
+		List<SUser> userList = (List<SUser>) session.getAttribute(ATTR_S_FROM_KEY);
+
+		try {
+
+			final String line_separator = "\n";//System.getProperty("line.separator");
+			final String fileName = "userList_" + "date" + ".csv";
+
+			/* Excelで開くとき。（出力できない文字に注意）
+			response.setContentType("application/octet-stream,charset=MS932");
+			*/
+			response.setContentType("application/octet-stream,charset=UTF-8");
+			response.setHeader("Content-disposition",
+					"attachment; filename=\"" + fileName + "\"");
+
+			PrintWriter pw = response.getWriter();
+
+			pw.write("ユーザID,ユーザ名" + line_separator);
+
+			if(userList != null) {
+
+				//画面のリスト分CSVのレコード作成する。
+				for(SUser sUser : userList) {
+
+					StringBuilder sb = new StringBuilder();
+
+					sb.append(sUser.getUpdUserId());
+					sb.append(",");
+					sb.append(sUser.getName());
+					sb.append(line_separator);
+					pw.write(sb.toString());
+				}
+			}
+
+		} catch (IOException e) {
+
+			throw new SystemException("書き込み失敗");
+		}
+
+		logger.debug("csvDownload end");
+
 	}
 }

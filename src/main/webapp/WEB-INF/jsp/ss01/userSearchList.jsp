@@ -14,9 +14,11 @@
 <form:form id="oForm" modelAttribute="userSrchLstForm" method="post">
 <input type="hidden" id="contextPath" value="${pageContext.servletContext.contextPath}" />
 <input type="button" name="_event_processd" onclick="submitPrc('ss01\/register')" value="新規登録">
+<input type="button" name="_event_processd" onclick="submitPrc('ss01\/register')" value="jqGrid検索一覧">
 <br/>
 <br/>
 <input type="button" name="_event_processd" onclick="submitPrc('ss01\/search')" value="検索">
+<input type="button" name="_event_processd" onclick="submitPrc('ss01\/csvDownload')" value="CSVダウンロード">
 <hr>
 
 <table class="result-table" >
