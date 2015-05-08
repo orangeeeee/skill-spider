@@ -1,5 +1,7 @@
 package jp.co.skill.spider.ss01.form;
 
+import java.sql.Timestamp;
+
 /**
  * ユーザ登録、更新、照会画面データ格納Fromクラス
  * @author yuuichi
@@ -18,6 +20,8 @@ public class UserForm {
 	private String eMail;
 
 	private String introduceMyself;
+
+	private Timestamp updTimestamp;
 
 	public String getsUserId() {
 		return sUserId;
@@ -65,6 +69,14 @@ public class UserForm {
 
 	public void setIntroduceMyself(String introduceMyself) {
 		this.introduceMyself = introduceMyself;
+	}
+
+	public Timestamp getUpdTimestamp() {
+		return updTimestamp;
+	}
+
+	public void setUpdTimestamp(Timestamp updTimestamp) {
+		this.updTimestamp = updTimestamp;
 	}
 
 }

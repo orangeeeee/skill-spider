@@ -16,7 +16,7 @@ public class SUser {
 
 	private String regUserId;
 
-	private Timestamp regTimestamp	;
+	private Timestamp regTimestamp;
 
 	private String updUserId;
 
@@ -27,7 +27,7 @@ public class SUser {
 	 * DateTypeHandler	java.util.Date	TIMESTAMP
 	 * 一応Stringでも取れるけど、比較のときに・・・
 	 */
-	private Timestamp updTimestamp	;
+	private Timestamp updTimestamp;
 
 	public String getsUserId() {
 		return sUserId;

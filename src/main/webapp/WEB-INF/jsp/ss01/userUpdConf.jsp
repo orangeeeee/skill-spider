@@ -8,15 +8,16 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/view/css/ss01/ss01-common.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/view/css/common.css">
 <title>ユーザ情報更新確認画面</title>
 </head>
 <body>
 <h1>ユーザ情報更新確認画面</h1>
 <form:form id="oForm" modelAttribute="sssionUserForm" method="post">
 <input type="hidden" id="contextPath" value="${pageContext.servletContext.contextPath}" />
+<p class="error-msg"><c:out value="${ message}" /></p>
 <input type="button" name="_event_processd" onclick="submitPrc('ss01\/userSchList')" value="一覧へ戻る">
 <br/>
-<c:out value="${ message}" />
 <table class="info-table">
 	<tr>
 		<th align="left">ユーザID</th>

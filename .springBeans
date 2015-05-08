@@ -10,6 +10,7 @@
 		<config>java:jp.co.skill.spider.Application</config>
 	</configs>
 	<autoconfigs>
+		<config>src/main/webapp/META-INF/spring-servlet.xml</config>
 	</autoconfigs>
 	<configSets>
 	</configSets>

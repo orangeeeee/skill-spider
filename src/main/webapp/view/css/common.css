@@ -1,6 +1,10 @@
 p div progress {
 	display: block;
 }
+
+.error-msg {
+	color:#CC2900;
+}
 /* プログレスバー style */
 #progress p.success
 {

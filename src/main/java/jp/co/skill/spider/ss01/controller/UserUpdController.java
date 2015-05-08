@@ -79,6 +79,8 @@ public class UserUpdController {
 		BeanUtils.copyProperties(resultData, userForm);
 		userForm.setPasswordConf(userForm.getPassword());
 
+		session.setAttribute(SESSION_FROM_KEY, userForm);
+
 		modelAndView.addObject(ATTR_FROM_KEY, userForm);
 		modelAndView.setViewName("ss01/userUpd");
 
@@ -129,6 +131,8 @@ public class UserUpdController {
 		//UserIdを設定
 		UserForm sUserForm = (UserForm)session.getAttribute(SESSION_FROM_KEY);
 		userForm.setsUserId(sUserForm.getsUserId());
+		userForm.setUpdTimestamp(sUserForm.getUpdTimestamp());
+
 		//正常遷移の場合、HttpSessionの値を表示さる。
 		session.setAttribute(SESSION_FROM_KEY, userForm);
 
@@ -190,16 +194,16 @@ public class UserUpdController {
 
 		try{
 			userService.update(sUserForm);
+			//登録確認画面用のSessionを削除。
+			session.setAttribute(SESSION_FROM_KEY, null);
+			modelAndView.setViewName("ss01/userUpdComp");
+
 		}catch (BussinessException ex) {
 
 			modelAndView.addObject("message", ex.getMessage());
 			//TODO 前の画面に戻る。
 			modelAndView.setViewName("ss01/userUpdConf");
 		}
-		//登録確認画面用のSessionを削除。
-		session.setAttribute(SESSION_FROM_KEY, null);
-
-		modelAndView.setViewName("ss01/userUpdComp");
 
 		logger.debug("updateComp end");
 

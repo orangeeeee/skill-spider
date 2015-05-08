@@ -9,6 +9,10 @@
 		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.1.xsd
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd">
 
+	<!--
+	 Spring MVC周りの設定ファイル
+	 -->
+
 	<!-- Spring mvc annotationの利用設定 -->
 	<!-- @Autowired,@Resourceを利用する場合の宣言 -->
 	<mvc:annotation-driven/>

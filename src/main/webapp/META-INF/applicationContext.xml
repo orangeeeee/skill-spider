@@ -1,15 +1,77 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd
 		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.1.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.1.xsd">
-
+	<!--
+	 Spring 本体の設定ファイル
+	 -->
 	<!-- anotationマッピングを許可 -->
 	<context:annotation-config />
 	<!-- DI Setting -->
 	<context:component-scan base-package="jp.co.ne.skill.spider.*" />
 
+	<!-- transactionの設定 Serviceクラスの呼び出しごとにトランザクションを設定する
+	<設定内容について>
+	■propagation トランザクションの伝播方法を指定する。
+		[REQUIRE]
+		トランザクションが開始されていなければ開始する。 (省略時のデフォルト)
+		[REQUIRES_NEW]
+		常に、新しいトランザクションを開始する。
+		[SUPPORTS]
+		トランザクションが開始されていれば、それを利用する。開始されていなければ、利用しない。
+		[NOT_SUPPORTED]
+		トランザクションを利用しない。
+		[MANDATORY]
+		トランザクションが開始されている必要がある。開始されていなければ、例外が発生する。
+		[NEVER]
+		トランザクションを利用しない（開始されていてはいけない）。開始していれば、例外が発生する。
+		[NESTED]
+		セーブポイントが設定される。JDBCのみ有効である。
+				この値をtrueにした場合、DB更新処理を行うとエラーになります。
+
+	■isolation トランザクションの独立レベルを指定する。
+				この設定は、DBの仕様に依存するため、
+				使用するDBの仕様を確認し、設定値を決めること。
+		[DEFAULT]
+		DBが提供するデフォルトの独立性レベル。(省略時のデフォルト)
+		[READ_UNCOMMITTED]
+		他のトランザクションで変更中（未コミット）のデータが読める。
+		[READ_COMMITTED]
+		他のトランザクションで変更中（未コミット）のデータは読めない。
+		[REPEATABLE_READ]
+		他のトランザクションが読み出したデータは更新できない。
+		[SERIALIZABLE]
+		トランザクションを完全に独立させる。
+
+		主要DBのisolationのデフォルトについてデフォルトの独立性レベルは、以下の通り。
+		Oracle : READ_COMMITTED
+		DB2 : READ_COMMITTED
+		PostgreSQL : READ_COMMITTED
+		SQL Server : READ_COMMITTED
+		MySQL : REPEATABLE_READ
+
+		■readOnly
+		トランザクションの読み取り専用フラグを指定する。
+		デフォルトはfalse(読み取り専用でない)
+	-->
+	<tx:advice id="transactionAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="*"
+				propagation="REQUIRED"
+				rollback-for="jp.co.skill.spider.exception.SystemException"
+			 />
+		</tx:attributes>
+	</tx:advice>
+
+	<!-- 宣言的トランザクションの織り込み -->
+	<aop:config proxy-target-class="false">
+		<aop:advisor advice-ref="transactionAdvice" pointcut="execution(* jp.co.skill.spider..service.*(..))" />
+	</aop:config>
 </beans>
