@@ -7,6 +7,7 @@ import jp.co.skill.spider.dao.domain.SUser;
 import jp.co.skill.spider.exception.BussinessException;
 import jp.co.skill.spider.exception.SystemException;
 import jp.co.skill.spider.ss01.form.UserForm;
+import jp.co.skill.spider.util.QueryEscapeUtils;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,9 +64,9 @@ public class UserServiceImpl implements UserService {
 
 
 		SUser s_user = new SUser();
-
-		s_user.setsUserId(userId);
-		s_user.setName(userNm);
+		//likeエスケープを行い、検索条件に設定
+		s_user.setsUserId(QueryEscapeUtils.toLikeCondition(userId, false));
+		s_user.setName(QueryEscapeUtils.toLikeCondition(userNm, false));
 
 		// 一旦全権検索のみ後で条件つける。
 		/*
