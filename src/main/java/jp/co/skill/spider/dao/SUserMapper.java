@@ -10,9 +10,11 @@ import org.apache.ibatis.annotations.Select;
 public interface SUserMapper {
 
 	/**
-	 * 検索画面の条件にあった検索結果を取得
+	 * 検索画面の条件にあった検索結果を取得<br>
+	 * ※注意点※<br>
+	 * 引数の名前は型の先頭小文字にすること。
 	 */
-	public List<SUser> selectList();
+	public List<SUser> selectList(SUser sUser);
 
 	/**
 	 * sUserIdで検索

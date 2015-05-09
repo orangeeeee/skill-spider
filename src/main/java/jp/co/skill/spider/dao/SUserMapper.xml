@@ -12,10 +12,10 @@ Mapperの場所はどこでも良いが、javaファイルとセットで直す�
 		SELECT * FROM S_USER
 		<where><!-- 組み立てた条件文字列の先頭が “AND "や”OR ” で始まっていた場合、これを除去する -->
 			<if test="sUserId != null and sUserId != ''">
-				s_user_id = #{sUserId}
+				s_user_id like '%' || #{sUserId} || '%' ESCAPE '~'
 			</if>
 			<if test="name != null and name != ''">
-				AND name = #{name}
+				AND name like '%' || #{name} || '%' ESCAPE '~'
 			</if>
 		</where>
 	</select>

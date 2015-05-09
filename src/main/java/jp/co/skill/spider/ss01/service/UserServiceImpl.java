@@ -73,7 +73,7 @@ public class UserServiceImpl implements UserService {
 		 * 以下、参考サイト
 		 * https://terasolunaorg.github.io/guideline/public_review/ArchitectureInDetail/DataAccessCommon.html
 		 */
-		List<SUser> resultList = sUserMapper.selectList();
+		List<SUser> resultList = sUserMapper.selectList(s_user);
 
 
 		return resultList;
