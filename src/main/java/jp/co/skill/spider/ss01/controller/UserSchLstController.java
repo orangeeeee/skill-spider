@@ -2,7 +2,6 @@ package jp.co.skill.spider.ss01.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -58,7 +57,7 @@ public class UserSchLstController {
 	}
 
 	/**
-	 * 検索を非同期処理にする予定（ソートだけにするか迷っているところ。
+	 * 検索を非同期処理にする予定（TODO ソートだけにするか迷っているところ。
 	 * http://d.hatena.ne.jp/ryoasai/20110203/1296749495
 	 */
 	/**
@@ -73,11 +72,12 @@ public class UserSchLstController {
 
 		// 検索
 		List<SUser> resuUserltList = userService.search(
-				userSrchLstForm.getsUserId(), userSrchLstForm.getName());
+				userSrchLstForm.getKwSUserId(), userSrchLstForm.getKwName());
 
 		//検索結果を格納
 		userSrchLstForm.setUserList(resuUserltList);
-		session.setAttribute(ATTR_S_FROM_KEY, resuUserltList);
+
+		session.setAttribute(ATTR_S_FROM_KEY, userSrchLstForm);
 
 		logger.debug("search end");
 
@@ -94,10 +94,11 @@ public class UserSchLstController {
 
 		logger.debug("searchList starts");
 
-		UserSrchLstForm userSrchLstForm = new UserSrchLstForm();
+		UserSrchLstForm userSrchLstForm =  (UserSrchLstForm) session.getAttribute(ATTR_S_FROM_KEY);
 
-		//検索 TODO 検索条件をsession から取得するように修正する。
-		List<SUser> resuUserltList = new ArrayList<SUser>();//userService.search();
+		//検索
+		List<SUser> resuUserltList = userService.search(
+				userSrchLstForm.getKwSUserId(), userSrchLstForm.getKwName());
 
 		//検索結果を格納
 		userSrchLstForm.setUserList(resuUserltList);
@@ -115,15 +116,14 @@ public class UserSchLstController {
 	 * MS932等を仕様する必要があります。<br>
 	 * @return ModelAndView
 	 */
-	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/ss01/csvDownload",
 		method = RequestMethod.POST, produces = MimeTypeUtils.APPLICATION_OCTET_STREAM_VALUE + ";charset=utf-8")
-	public void csvDownload(@ModelAttribute UserForm userForm,
-			HttpSession session, HttpServletResponse response, ModelMap model) {
+	public void csvDownload(HttpSession session, HttpServletResponse response, ModelMap model) {
 
 		logger.debug("csvDownload starts");
 
-		List<SUser> userList = (List<SUser>) session.getAttribute(ATTR_S_FROM_KEY);
+		UserSrchLstForm userSrchLstForm =  (UserSrchLstForm) session.getAttribute(ATTR_S_FROM_KEY);
+		List<SUser> userList = userSrchLstForm.getUserList();
 
 		try {
 

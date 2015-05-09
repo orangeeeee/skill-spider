@@ -11,7 +11,11 @@ public class UserSrchLstForm {
 	 */
 	private String sUserId;
 
-	private String name;
+	/** 検索キーワード（ユーザID） */
+	private String kwSUserId;
+
+	/** 検索キーワード（名前） */
+	private String kwName;
 
 	private List<SUser> userList;
 
@@ -30,12 +34,21 @@ public class UserSrchLstForm {
 		this.sUserId = sUserId;
 	}
 
-	public String getName() {
-		return name;
+	public String getKwSUserId() {
+		return kwSUserId;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setKwSUserId(String kwSUserId) {
+		this.kwSUserId = kwSUserId;
 	}
+
+	public String getKwName() {
+		return kwName;
+	}
+
+	public void setKwName(String kwName) {
+		this.kwName = kwName;
+	}
+
 
 }

@@ -1,9 +1,12 @@
-p div progress {
-	display: block;
-}
-
 .error-msg {
 	color:#CC2900;
+}
+
+.com-input {
+	font-size: 9pt;
+}
+.shlabel {
+	margin: 0px 10px 0px 10px;
 }
 /* プログレスバー style */
 #progress p.success

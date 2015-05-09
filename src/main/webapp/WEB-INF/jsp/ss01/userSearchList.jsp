@@ -6,7 +6,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/view/css/common.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/view/css/ss01/searchList.css">
+<script type="text/javascript" src="${pageContext.request.contextPath}/view/js/lib/jquery-2.1.3.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/view/js/ss01/userSrchList.js"></script>
 <title>ユーザ検索一覧画面</title>
 </head>
 <body>
@@ -18,12 +21,13 @@
 <br/>
 <div>
 <h3>検索条件</h3>
-<%-- <form:input path="sUserId" placeholder="検索条件を入力してください。"/> --%>
-ユーザ名<form:input path="name" placeholder="検索条件を入力してください。"/>
+<input type="button" id="shKwCrear" class="com-input" value="条件クリア"><br/><br/>
+<label class="shlabel">ユーザID</label><span><form:input path="kwSUserId" id="kwSUserId" placeholder="検索条件を入力してください。"/></span><br>
+<label class="shlabel">ユーザ名</label><span><form:input path="kwName" id="kwName" placeholder="検索条件を入力してください。"/></span>
 </div>
 <br/>
-<input type="button" name="_event_processd" onclick="submitPrc('ss01\/search')" value="検索">
-<input type="button" name="_event_processd" onclick="submitPrc('ss01\/csvDownload')" value="CSVダウンロード">
+<input type="button" class="com-input" name="_event_processd" onclick="submitPrc('ss01\/search')" value="検索">
+<input type="button" class="com-input" name="_event_processd" onclick="submitPrc('ss01\/csvDownload')" value="CSVダウンロード">
 <hr>
 <table class="result-table" >
 	<tr>
