@@ -20,7 +20,11 @@
 <input type="button" name="_event_processd" onclick="submitPrc('ss01\/search')" value="検索">
 <input type="button" name="_event_processd" onclick="submitPrc('ss01\/csvDownload')" value="CSVダウンロード">
 <hr>
-
+<div>
+<h2>検索条件</h2>
+<%-- <form:input path="sUserId" placeholder="検索条件を入力してください。"/> --%>
+ユーザ名<form:input path="name" placeholder="検索条件を入力してください。"/>
+</div>
 <table class="result-table" >
 	<tr>
 		<th>No.</th><th class="id_col">ID</th><th class="name_col">名前</th>

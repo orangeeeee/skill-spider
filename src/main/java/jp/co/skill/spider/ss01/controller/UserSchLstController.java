@@ -2,6 +2,7 @@ package jp.co.skill.spider.ss01.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -65,15 +66,14 @@ public class UserSchLstController {
 	 * @return ModelAndView
 	 */
 	@RequestMapping(value = "/ss01/search", method = RequestMethod.POST)
-	public ModelAndView search(@ModelAttribute UserForm userForm,
+	public ModelAndView search(@ModelAttribute UserSrchLstForm userSrchLstForm,
 			HttpSession session, ModelMap model) {
 
 		logger.debug("search starts");
 
-		UserSrchLstForm userSrchLstForm = new UserSrchLstForm();
-
-		//検索
-		List<SUser> resuUserltList = userService.search();
+		// 検索
+		List<SUser> resuUserltList = userService.search(
+				userSrchLstForm.getsUserId(), userSrchLstForm.getName());
 
 		//検索結果を格納
 		userSrchLstForm.setUserList(resuUserltList);
@@ -96,8 +96,8 @@ public class UserSchLstController {
 
 		UserSrchLstForm userSrchLstForm = new UserSrchLstForm();
 
-		//検索
-		List<SUser> resuUserltList = userService.search();
+		//検索 TODO 検索条件をsession から取得するように修正する。
+		List<SUser> resuUserltList = new ArrayList<SUser>();//userService.search();
 
 		//検索結果を格納
 		userSrchLstForm.setUserList(resuUserltList);

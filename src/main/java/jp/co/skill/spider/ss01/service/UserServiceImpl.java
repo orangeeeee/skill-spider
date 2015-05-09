@@ -55,16 +55,23 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
+	/**
+	 * 検索一覧.検索ボタン押下処理
+	 */
 	@Override
-	public List<SUser> search() {
+	public List<SUser> search(String userId, String userNm) {
+
+
+		SUser s_user = new SUser();
+
+		s_user.setsUserId(userId);
+		s_user.setName(userNm);
 
 		// 一旦全権検索のみ後で条件つける。
 		/*
 		 * SQLインジェクション対策はこれから入れる。
 		 * 以下、参考サイト
 		 * https://terasolunaorg.github.io/guideline/public_review/ArchitectureInDetail/DataAccessCommon.html
-		 * http://www.tokumaru.org/d/20080601.html
-		 *
 		 */
 		List<SUser> resultList = sUserMapper.selectList();
 

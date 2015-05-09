@@ -15,7 +15,9 @@
 <input type="hidden" id="contextPath" value="${pageContext.servletContext.contextPath}" />
 <input type="button" name="_event_processd" onclick="submitPrc('ss01\/userSchList')" value="一覧へ戻る">
 <br/>
-<c:out value="${ message}" />
+<p class="error-msg">
+	<c:out value="${ message}" />
+</p>
 <table class="info-table">
 	<tr>
 		<th align="left">ユーザID</th>

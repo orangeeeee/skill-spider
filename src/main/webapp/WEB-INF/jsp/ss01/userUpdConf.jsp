@@ -15,7 +15,9 @@
 <h1>ユーザ情報更新確認画面</h1>
 <form:form id="oForm" modelAttribute="sssionUserForm" method="post">
 <input type="hidden" id="contextPath" value="${pageContext.servletContext.contextPath}" />
-<p class="error-msg"><c:out value="${ message}" /></p>
+<p class="error-msg">
+	<c:out value="${ message}" />
+</p>
 <input type="button" name="_event_processd" onclick="submitPrc('ss01\/userSchList')" value="一覧へ戻る">
 <br/>
 <table class="info-table">

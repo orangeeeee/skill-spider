@@ -21,7 +21,7 @@ public interface UserService {
 	/**
 	 * 検索処理
 	 */
-	public List<SUser> search();
+	public List<SUser> search(String userId, String userNm);
 
 	/**
 	 * 照会画面表示処理

@@ -11,6 +11,8 @@ public class UserSrchLstForm {
 	 */
 	private String sUserId;
 
+	private String name;
+
 	private List<SUser> userList;
 
 	public List<SUser> getUserList() {
@@ -26,6 +28,14 @@ public class UserSrchLstForm {
 
 	public void setsUserId(String sUserId) {
 		this.sUserId = sUserId;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 }
