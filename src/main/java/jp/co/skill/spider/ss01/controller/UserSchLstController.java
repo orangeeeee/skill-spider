@@ -79,6 +79,10 @@ public class UserSchLstController {
 
 		session.setAttribute(ATTR_S_FROM_KEY, userSrchLstForm);
 
+		if(resuUserltList == null) {
+
+			throw new SystemException();
+		}
 		logger.debug("search end");
 
 		return new ModelAndView("ss01/userSearchList", ATTR_FROM_KEY, userSrchLstForm);
