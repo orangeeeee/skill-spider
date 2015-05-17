@@ -1,3 +1,39 @@
+label th {
+	color :#00006a;
+}
+h1 {
+	font-size:20pt;
+	font-family: HGŠÛºÞ¼¯¸M-PRO;
+	color :#fff;
+}
+.all-parent {
+	width:1200px;
+	margin: auto auto auto auto;
+}
+.title {
+	height:60px;
+	line-height:60px;
+	text-align:left;
+	background-color: #00006a;
+	margin: 0px 0px 15px 0px;
+	padding-left: 15px;
+}
+.input[type="text"] {
+	color:#aaa;
+	border:solid 1px #ccc;
+}
+/*
+.input[type="text"] :active{
+	border:solid 1px #EEA34A;
+}
+.input[type="text"] :focus{
+	--border:solid 1px #80ffff;
+}
+*/
+input:focus {
+    border:solid 1px #EEA34A;
+}
+
 .error-msg {
 	color:#CC2900;
 }

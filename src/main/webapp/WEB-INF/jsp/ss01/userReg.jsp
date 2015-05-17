@@ -13,7 +13,10 @@
 <title>ユーザ情報登録画面</title>
 </head>
 <body>
-<h1>ユーザ情報登録画面</h1>
+<div class="all-parent">
+<div class="title" >
+	<h1>ユーザ情報登録画面</h1>
+</div>
 <form:form id="oForm" modelAttribute="userForm" method="post">
 <div id="dragArea" draggable="true">
 <input type="hidden" id="contextPath" value="${pageContext.servletContext.contextPath}" />
@@ -81,6 +84,7 @@
 </div><%-- dragArea end --%>
 <input type="button" name="_event_processd" onclick="submitPrc('ss01\/registerConf')" value="確認">
 </form:form>
+</div><!-- all-parent -->
 <script type="text/javascript">
 
 </script>
