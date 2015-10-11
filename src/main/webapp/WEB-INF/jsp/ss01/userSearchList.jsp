@@ -13,7 +13,10 @@
 <title>ユーザ検索一覧画面</title>
 </head>
 <body>
+<div class="all-parent">
+<div class="title" >
 <h1>ユーザ検索一覧画面</h1>
+</div>
 <form:form id="oForm" modelAttribute="userSrchLstForm" method="post">
 <input type="hidden" id="contextPath" value="${pageContext.servletContext.contextPath}" />
 <input type="button" name="_event_processd" onclick="submitPrc('ss01\/register')" value="新規登録">
@@ -63,6 +66,7 @@
 --%>
 <form:hidden path="sUserId"/>
 </form:form>
+</div><!-- all-parent -->
 <script type="text/javascript">
 function submitPrc(btnName) {
 	var contextPath = document.getElementById('contextPath').value;
