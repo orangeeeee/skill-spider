@@ -20,7 +20,7 @@
 			<dataSource type="POOLED">
 				<property name="driver" value="org.postgresql.Driver" />
 				<property name="url"
-					value="jdbc:postgresql://192.168.2.104:5432/skill_spaider" />
+					value="jdbc:postgresql://192.168.2.108:5432/skill_spaider" />
 				<property name="username" value="postgres" />
 				<property name="password" value="" />
 			</dataSource>

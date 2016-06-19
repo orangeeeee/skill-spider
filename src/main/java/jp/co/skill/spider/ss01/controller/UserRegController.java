@@ -4,6 +4,8 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import jp.co.skill.spider.exception.BussinessException;
+import jp.co.skill.spider.model.Car;
+import jp.co.skill.spider.ss01.common.imple.VehicleDriver;
 import jp.co.skill.spider.ss01.form.UserForm;
 import jp.co.skill.spider.ss01.service.UserService;
 import jp.co.skill.spider.ss01.validation.UserValidator;
@@ -193,6 +195,9 @@ public class UserRegController {
 
 		UserForm sUserForm = (UserForm)session.getAttribute(SESSION_FROM_KEY);
 
+
+		handleVehicle(Car::new);
+
 		try {
 
 			userService.register(sUserForm);
@@ -212,5 +217,11 @@ public class UserRegController {
 		logger.debug("registerComp end");
 
 		return modelAndView;
+	}
+
+	static void handleVehicle(VehicleDriver vDriver) {
+		System.out.println("Handling a new vehicle...");
+		vDriver.driveVehicle();
+		vDriver.cleanVehicle();
 	}
 }

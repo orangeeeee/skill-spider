@@ -9,8 +9,11 @@ import javax.servlet.http.HttpSession;
 
 import jp.co.skill.spider.dao.domain.SUser;
 import jp.co.skill.spider.exception.SystemException;
+import jp.co.skill.spider.model.ReserveInfo;
 import jp.co.skill.spider.ss01.form.UserForm;
 import jp.co.skill.spider.ss01.form.UserSrchLstForm;
+import jp.co.skill.spider.ss01.mail.MailSender;
+import jp.co.skill.spider.ss01.mail.PremiumMailFactory;
 import jp.co.skill.spider.ss01.service.UserService;
 
 import org.apache.log4j.Logger;
@@ -99,6 +102,14 @@ public class UserSchLstController {
 		logger.debug("searchList starts");
 
 		UserSrchLstForm userSrchLstForm =  (UserSrchLstForm) session.getAttribute(ATTR_S_FROM_KEY);
+
+		/** DIの前にFactory Methodパンターンを実行しても問題ないか確認（DIでnullにならないか）。*/
+		ReserveInfo mailData = new ReserveInfo();
+		mailData.setName("user name");
+		mailData.setNumber("user number");
+
+		MailSender.handleSendMail(PremiumMailFactory::new, mailData);
+
 
 		//検索
 		List<SUser> resuUserltList = userService.search(
