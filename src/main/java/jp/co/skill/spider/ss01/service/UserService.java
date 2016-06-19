@@ -28,4 +28,10 @@ public interface UserService {
 	 */
 	public SUser getUserInfo(String sUserId);
 
+
+	/**
+	 * DI呼び出しテスト用
+	 */
+	public String getTemplate(String templateName);
+
 }

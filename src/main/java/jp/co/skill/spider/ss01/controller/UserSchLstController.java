@@ -73,6 +73,13 @@ public class UserSchLstController {
 
 		logger.debug("search starts");
 
+		/** DIの前にFactory Methodパンターンを実行しても問題ないか確認（DIでnullにならないか）。*/
+		ReserveInfo mailData = new ReserveInfo();
+		mailData.setName("user name");
+		mailData.setNumber("user number");
+
+		MailSender.handleSendMail(PremiumMailFactory::new, mailData);
+
 		// 検索
 		List<SUser> resuUserltList = userService.search(
 				userSrchLstForm.getKwSUserId(), userSrchLstForm.getKwName());
@@ -103,12 +110,6 @@ public class UserSchLstController {
 
 		UserSrchLstForm userSrchLstForm =  (UserSrchLstForm) session.getAttribute(ATTR_S_FROM_KEY);
 
-		/** DIの前にFactory Methodパンターンを実行しても問題ないか確認（DIでnullにならないか）。*/
-		ReserveInfo mailData = new ReserveInfo();
-		mailData.setName("user name");
-		mailData.setNumber("user number");
-
-		MailSender.handleSendMail(PremiumMailFactory::new, mailData);
 
 
 		//検索

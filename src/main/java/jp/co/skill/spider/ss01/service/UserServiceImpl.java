@@ -127,4 +127,10 @@ public class UserServiceImpl implements UserService {
 		}
 
 	}
+
+	@Override
+	public String getTemplate(String templateName) {
+		// TODO Auto-generated method stub
+		return "di service return value";
+	}
 }

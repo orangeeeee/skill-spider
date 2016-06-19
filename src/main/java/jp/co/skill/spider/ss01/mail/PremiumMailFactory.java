@@ -2,6 +2,9 @@ package jp.co.skill.spider.ss01.mail;
 
 import jp.co.skill.spider.model.MailData;
 import jp.co.skill.spider.model.ReserveInfo;
+import jp.co.skill.spider.ss01.service.UserService;
+
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class PremiumMailFactory extends AbstructMailFactory implements MailFactory {
 
@@ -10,6 +13,9 @@ public class PremiumMailFactory extends AbstructMailFactory implements MailFacto
 
 	/** メールタイトル */
 	private static String TITLE = "プレミアム会員様お得情報";
+
+	@Autowired
+	private UserService userService;
 
 	@Override
 	public MailData create(ReserveInfo reserveInfo) {
@@ -23,6 +29,9 @@ public class PremiumMailFactory extends AbstructMailFactory implements MailFacto
 		data.setBody(createBody(reserveInfo));
 
 		System.out.println("end create");
+
+		//ここが今の実装だとNullになってしまう。
+		userService.getTemplate("aaa");
 
 		return data;
 	}
